@@ -2,12 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/cabinet.dart';
 import 'package:flutter_app/screens/custom/bottom_navigation.dart';
-import 'package:flutter_app/screens/custom/custom_list_tile.dart';
 import 'package:flutter_app/screens/custom/left_navigation.dart';
-import 'package:flutter_app/screens/room.dart';
-import 'file:///C:/Nisha/projects/mobile-app/flutter_app/lib/screens/search.dart';
+import 'package:flutter_app/screens/room/room.dart';
+import 'package:flutter_app/screens/search.dart';
+import 'package:flutter_app/screens/thing.dart';
 import 'package:flutter_app/services/auth_service.dart';
-import 'file:///C:/Nisha/projects/mobile-app/flutter_app/lib/screens/thing.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {

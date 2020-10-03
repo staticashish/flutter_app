@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/room_model.dart';
-import 'package:flutter_app/screens/room_form.dart';
+import 'package:flutter_app/screens/room/room_form.dart';
+import 'package:provider/provider.dart';
 
 class Room extends StatefulWidget {
 
@@ -17,7 +19,6 @@ class _RoomState extends State<Room> {
   final FirebaseDatabase _database = FirebaseDatabase.instance;
   StreamSubscription<Event> _onRoomAddedSubscription;
   StreamSubscription<Event> _onRoomChangedSubscription;
-
   Query _roomQuery;
 
   @override
@@ -41,6 +42,7 @@ class _RoomState extends State<Room> {
   }
 
   _onEntryAdded(Event event) {
+    print('on added');
     setState(() {
       _rooms.add(RoomModel.fromSnapshot(event.snapshot));
     });
@@ -53,13 +55,11 @@ class _RoomState extends State<Room> {
     super.dispose();
   }
 
-  void _showRoomAddPanel() {
-    showModalBottomSheet(context: context, builder: (context) {
-      return Container(
-        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 60.0),
-        child: RoomForm(onCreate: _onCreate),
-      );
-    });
+  void _showRoomAdd() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RoomForm(onCreate: _onCreate)),
+    );
   }
 
   _onCreate(String roomName, String roomId, String roomSize) {
@@ -77,7 +77,7 @@ class _RoomState extends State<Room> {
       body: buildRoomList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showRoomAddPanel();
+          _showRoomAdd();
         },
         child: Icon(Icons.add),
         backgroundColor: Color(0Xff5f72a9),
@@ -109,8 +109,8 @@ class _RoomState extends State<Room> {
               ),
               child: ListTile(
                   leading: Icon(Icons.flight_land),
-                  title: Text(roomId),
-                  subtitle: Text(roomName),
+                  title: Text(roomName),
+                  subtitle: Text(roomId),
                   trailing: Icon(Icons.more_vert),
                   onTap: () {
                   }
