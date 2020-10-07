@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class RoomModel {
@@ -8,11 +9,11 @@ class RoomModel {
 
   RoomModel(this.roomId, this.roomName, this.roomSize);
 
-  RoomModel.fromSnapshot(DataSnapshot snapshot) :
-        key = snapshot.key,
-        roomId = snapshot.value["roomId"],
-        roomName = snapshot.value["roomName"],
-        roomSize = snapshot.value["roomSize"];
+  RoomModel.fromSnapshot(QueryDocumentSnapshot snapshot) :
+        key = snapshot.id,
+        roomId = snapshot.data()["roomId"],
+        roomName = snapshot.data()["roomName"],
+        roomSize = snapshot.data()["roomSize"];
 
   toJson() {
     return {

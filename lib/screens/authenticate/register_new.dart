@@ -283,7 +283,7 @@ class _RegisterNewState extends State<RegisterNew> {
                                 color: Color(0Xff2b3c63),
                                 onPressed: () async {
                                   if(_formKey.currentState.validate()){
-                                    dynamic result = await _authService.registerWithEmailAndPassword(email, password);
+                                    dynamic result = await _authService.registerWithEmailAndPassword(email, password, fName);
                                     if(result.user == null) {
                                       print("==> "+result.error);
                                       _showMaterialDialog(result.error, "Error");

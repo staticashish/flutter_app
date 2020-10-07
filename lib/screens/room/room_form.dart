@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/room_model.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class RoomForm extends StatefulWidget {
@@ -20,6 +23,7 @@ class _RoomFormState extends State<RoomForm> {
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0Xff5f72a9),
@@ -109,7 +113,7 @@ class _RoomFormState extends State<RoomForm> {
                   onPressed: () async {
                     if(_formKey.currentState.validate()){
                       roomId = uuid.v1();
-                      widget.onCreate(roomName, roomId, roomSize);
+                      widget.onCreate(roomName, roomId, roomSize, user.uid);
                       Navigator.pop(context);
                     }
                   },

@@ -253,7 +253,7 @@ class _RegisterState extends State<Register> {
                                 color: Colors.redAccent,
                                 onPressed: () async {
                                   if(_formKey.currentState.validate()){
-                                   dynamic result = await _authService.registerWithEmailAndPassword(email, password);
+                                   dynamic result = await _authService.registerWithEmailAndPassword(email, password, null);
                                    if(result.user == null) {
                                      print(result.error);
                                    }
