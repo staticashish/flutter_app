@@ -25,7 +25,6 @@ class _CabinetListState extends State<CabinetList> {
   @override
   Widget build(BuildContext context) {
     final _cabinets = Provider.of<List<CabinetModel>>(context);
-    print(_cabinets);
     if (_cabinets != null && _cabinets.length > 0) {
       return ListView.builder(
           shrinkWrap: true,

@@ -37,6 +37,7 @@ class _RoomState extends State<Room> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
+    print("==> .."+user.uid);
     return Scaffold(
       body: RoomList(),
       floatingActionButton: FloatingActionButton(

@@ -25,7 +25,6 @@ class _RoomListState extends State<RoomList> {
   @override
   Widget build(BuildContext context) {
     final _rooms = Provider.of<List<RoomModel>>(context);
-    print(_rooms);
     if(_rooms != null && _rooms.length > 0 ) {
       return ListView.builder(
           shrinkWrap: true,

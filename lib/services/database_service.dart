@@ -57,13 +57,12 @@ class DatabaseService {
 
   List<RoomModel> _roomListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      print("room");
-      print(doc.data());
       return RoomModel.fromSnapshot(doc);
     }).toList();
   }
 
   List<CabinetModel> _cabinetListFromSnapshot(QuerySnapshot snapshot) {
+    print(snapshot.docs);
     return snapshot.docs.map((doc) {
       print("cabinet");
       print(doc.data());

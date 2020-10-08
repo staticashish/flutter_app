@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,7 @@ class _CabinetFormState extends State<CabinetForm> {
   @override
   Widget build(BuildContext context) {
     final _rooms = Provider.of<List<RoomModel>>(context);
+    final _user = Provider.of<User>(context);
     if (_rooms != null) {
       return Scaffold(
         appBar: AppBar(
@@ -155,7 +157,7 @@ class _CabinetFormState extends State<CabinetForm> {
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         cabinetId = uuid.v1();
-                        widget.onCreate(cabinetName, cabinetId, cabinetSize, selectedRoom.key);
+                        widget.onCreate(cabinetName, cabinetId, cabinetSize, _user.uid, selectedRoom.key);
                         Navigator.pop(context);
                       }
                     },

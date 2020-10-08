@@ -35,10 +35,10 @@ class _CabinetState extends State<Cabinet> {
   }
 
   _onCreate(String cabinetName, String cabinetId, String cabinetSize,
-      String roomDocId) async {
+      String uid, String roomDocId) async {
     CabinetModel roomModel =
         new CabinetModel(cabinetId, cabinetName, cabinetSize);
-    await DatabaseService(docId: roomDocId)
+    await DatabaseService(docId: roomDocId, uid: uid)
         .addCabinetData(cabinetName, cabinetId, cabinetSize);
     setState(() {
       isLoading = false;
@@ -48,17 +48,21 @@ class _CabinetState extends State<Cabinet> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    return Scaffold(
-      body: CabinetList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            isLoading = true;
-          });
-          _showCabinetAdd(user.uid);
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Color(0Xff5f72a9),
+    print("==> "+user.uid);
+    return StreamProvider<List<CabinetModel>>.value(
+      value: DatabaseService(uid: user.uid).cabinets,
+      child: Scaffold(
+        body: CabinetList(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              isLoading = true;
+            });
+            _showCabinetAdd(user.uid);
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Color(0Xff5f72a9),
+        ),
       ),
     );
   }
