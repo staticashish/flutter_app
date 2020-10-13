@@ -6,6 +6,7 @@ import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_form.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_list.dart';
+import 'package:flutter_app/screens/custom/left_navigation.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:provider/provider.dart';
 
@@ -21,17 +22,12 @@ class _CabinetState extends State<Cabinet> {
     setState(() {
       isLoading = true;
     });
-    /*Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CabinetForm(onCreate: _onCreate)),
-    );*/
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) {
-       return StreamProvider<List<RoomModel>>.value(child: CabinetForm(onCreate: _onCreate),
-            value: DatabaseService(uid: uid).rooms);
-      }
-      )
-    );
+
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return StreamProvider<List<RoomModel>>.value(
+          child: CabinetForm(onCreate: _onCreate),
+          value: DatabaseService(uid: uid).rooms);
+    }));
   }
 
   _onCreate(String cabinetName, String cabinetId, String cabinetSize,
@@ -48,21 +44,23 @@ class _CabinetState extends State<Cabinet> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    print("==> "+user.uid);
-    return StreamProvider<List<CabinetModel>>.value(
-      value: DatabaseService(uid: user.uid).cabinets,
-      child: Scaffold(
-        body: CabinetList(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              isLoading = true;
-            });
-            _showCabinetAdd(user.uid);
-          },
-          child: Icon(Icons.add),
-          backgroundColor: Color(0Xff5f72a9),
-        ),
+    return Scaffold(
+      body: CabinetList(),
+      drawer: LeftNavigation(),
+      appBar: AppBar(
+        backgroundColor: Color(0Xff5f72a9),
+        elevation: 10.0,
+        title: Text('Cabinet'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            isLoading = true;
+          });
+          _showCabinetAdd(user.uid);
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Color(0Xff5f72a9),
       ),
     );
   }

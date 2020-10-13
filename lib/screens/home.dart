@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/custom/left_navigation.dart';
 
-class Thing extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _ThingState createState() => _ThingState();
+  _HomeState createState() => _HomeState();
 }
 
-class _ThingState extends State<Thing> {
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,13 +14,13 @@ class _ThingState extends State<Thing> {
       appBar: AppBar(
         backgroundColor: Color(0Xff5f72a9),
         elevation: 10.0,
-        title: Text('Thing'),
+        title: Text('Home'),
       ),
       //drawer: LeftNavigation(),
       body: Center(
         child: Container(
           child: Text(
-            "Thing",
+            "Home",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 50,
@@ -28,14 +28,6 @@ class _ThingState extends State<Thing> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print("Add Thing");
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Color(0Xff5f72a9),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

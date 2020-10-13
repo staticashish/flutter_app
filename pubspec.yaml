@@ -79,6 +79,9 @@ flutter:
     - family: icomoon
       fonts:
         - asset: assets/fonts/IcoMoon.ttf
+    - family: AppIcons
+      fonts:
+        - asset: assets/fonts/AppIcons.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

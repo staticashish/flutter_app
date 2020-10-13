@@ -64,8 +64,6 @@ class DatabaseService {
   List<CabinetModel> _cabinetListFromSnapshot(QuerySnapshot snapshot) {
     print(snapshot.docs);
     return snapshot.docs.map((doc) {
-      print("cabinet");
-      print(doc.data());
       return CabinetModel.fromSnapshot(doc);
     }).toList();
   }

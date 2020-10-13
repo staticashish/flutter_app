@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/services/auth_service.dart';
 import 'package:flutter_signin_button/button_view.dart';
@@ -24,16 +25,23 @@ class _SignInNewState extends State<SignInNew> {
   String password = '';
 
   void _showMaterialDialog(message, titleMessage) {
-    showDialog(
+    showCupertinoDialog(
         context: context,
-        builder: (_) => new AlertDialog(
-          title: Text(titleMessage),
+        builder: (_) => new CupertinoAlertDialog(
+
+          title: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(titleMessage,
+              style: TextStyle(
+                fontWeight: FontWeight.bold
+              ),),
+          ),
           content: Text(message),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.close),
+            CupertinoDialogAction(
+              child: Text("Ok"),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(true);
               },
             )
           ],

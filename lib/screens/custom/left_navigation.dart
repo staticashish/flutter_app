@@ -18,6 +18,7 @@ class _LeftNavigationState extends State<LeftNavigation> {
     
     return Container(
       child: Drawer(
+        elevation: 10,
         child: ListView(
           children: [
             DrawerHeader(
@@ -44,7 +45,7 @@ class _LeftNavigationState extends State<LeftNavigation> {
                       SizedBox(height: 10.0),
                       RichText(
                         text: TextSpan(
-                            text: user.email,
+                            text: user.displayName ?? user.email,
                             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
                         ),
                       )

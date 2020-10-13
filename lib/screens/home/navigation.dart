@@ -1,35 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/bottom_naviagation_item.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet.dart';
 import 'package:flutter_app/screens/custom/bottom_navigation.dart';
 import 'package:flutter_app/screens/custom/left_navigation.dart';
+import 'package:flutter_app/screens/cabinet_drawer.dart';
 import 'package:flutter_app/screens/room/room.dart';
-import 'package:flutter_app/screens/search.dart';
+import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_app/screens/thing.dart';
 import 'package:flutter_app/services/auth_service.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatefulWidget {
+class Navigation extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _NavigationState createState() => _NavigationState();
 }
 
-class _HomeState extends State<Home> {
+class _NavigationState extends State<Navigation> {
   final AuthService _authService = AuthService();
 
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
+    print("==>.."+index.toString());
     setState(() {
       _selectedIndex = index;
     });
   }
 
   TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  List<Widget> widgetOptions = <Widget>[Room(), Cabinet(), Thing(), Search()];
+  List<Widget> widgetOptions = <Widget>[Home(), Room(), Cabinet(), CabinetDrawer(), Thing()];
 
   @override
   Widget build(BuildContext context) {
@@ -43,17 +46,12 @@ class _HomeState extends State<Home> {
         ],
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: Color(0Xff5f72a9),
-            elevation: 10.0,
-            title: Text('Flutter Demo'),
-          ),
-          body: Center(
-            child: widgetOptions[_selectedIndex],
-          ),
-          drawer: LeftNavigation(),
+          body: widgetOptions[_selectedIndex],
           bottomNavigationBar: BottomNavigation(
-              index: _selectedIndex, onTapFunction: _onItemTapped),
-        ));
+              onTapFunction: _onItemTapped,
+              index: _selectedIndex,
+          ),
+        )
+    );
   }
 }

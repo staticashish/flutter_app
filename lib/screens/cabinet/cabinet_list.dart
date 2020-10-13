@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,6 @@ class CabinetList extends StatefulWidget {
 }
 
 class _CabinetListState extends State<CabinetList> {
-
   _showMenuButton() {
     return PopupMenuButton(
         itemBuilder: (_) => <PopupMenuItem<String>>[
@@ -33,35 +33,59 @@ class _CabinetListState extends State<CabinetList> {
             String cabinetName = _cabinets[index].cabinetName;
             String cabinetId = _cabinets[index].cabinetId;
 
-            return Card(
-              shadowColor: Color(0Xff5f72a9),
-              elevation: 30,
-              margin: EdgeInsets.symmetric(vertical: 10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10)),
-              ),
-              child: ExpansionTile(
-                leading: Image.asset("assets/images/img_home_room.png"),
-                title: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    cabinetName,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Color(0Xff334a7d)),
+            return Dismissible(
+              key: Key(cabinetId),
+              confirmDismiss: (direction) => promptUser(direction),
+              background: Container(
+                alignment: AlignmentDirectional.centerEnd,
+                color: Color(0Xffba504b),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                    size: 30,
                   ),
                 ),
-                trailing: _showMenuButton(),
-                children: [
-                  ListTile(
-                    title: Text(cabinetId),
-                  )
-                ],
+              ),
+              onDismissed: (direction) {
+                print(_cabinets[index].cabinetName);
+                setState(() {
+                  _cabinets.removeAt(index);
+                });
+              },
+              child: Card(
+                shadowColor: Color(0Xff5f72a9),
+                elevation: 10,
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    // bottomRight: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    topLeft: Radius.circular(10),
+                    // bottomLeft: Radius.circular(10)
+                  ),
+                ),
+                child: ExpansionTile(
+                  leading: Image.asset("assets/images/img_home_room.png"),
+                  tilePadding: EdgeInsets.fromLTRB(10, 15, 0, 15),
+                  title: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      cabinetName,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Color(0Xff334a7d)),
+                    ),
+                  ),
+                  trailing: _showMenuButton(),
+                  children: [
+                    ListTile(
+                      title: Text(cabinetId),
+                    )
+                  ],
+                ),
               ),
             );
           });
@@ -83,5 +107,36 @@ class _CabinetListState extends State<CabinetList> {
             ]),
       ));
     }
+  }
+
+  Future<bool> promptUser(DismissDirection direction) async {
+    String action;
+    if (direction == DismissDirection.startToEnd) {
+      action = "archive";
+    } else {
+      action = "delete";
+    }
+
+    return await showCupertinoDialog<bool>(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            content: Text("Are you sure you want to $action?"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text('Cancel'),
+                onPressed: () {
+                  return Navigator.of(context).pop(false);
+                },
+              )
+            ],
+          ),
+        ) ??
+        false; // In case the user dismisses the dialog by clicking away from it
   }
 }
