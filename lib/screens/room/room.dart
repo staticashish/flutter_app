@@ -1,14 +1,17 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/bottom_naviagation_item.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/custom/bottom_navigation.dart';
+import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/custom/left_navigation.dart';
 import 'package:flutter_app/screens/room/room_form.dart';
 import 'package:flutter_app/screens/room/room_list.dart';
 import 'package:flutter_app/services/database_service.dart';
+import 'package:flutter_app/services/storage_service.dart';
 import 'package:provider/provider.dart';
 
 class Room extends StatefulWidget {
@@ -29,13 +32,21 @@ class _RoomState extends State<Room> {
     });
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RoomForm(onCreate: _onCreate)),
+      MaterialPageRoute(
+          builder: (context) => RoomForm(
+                onCreate: _onCreate,
+                onUploadRoomImage: _uploadRoomImage,
+              )),
     );
   }
 
-  _onCreate(String roomName, String roomId, String roomSize, String uid) async {
-    RoomModel roomModel = new RoomModel(roomId, roomName, roomSize);
-    await DatabaseService(uid: uid).addRoomData(roomName, roomId, roomSize);
+  Future<String> _uploadRoomImage(File file, String uid) async {
+    return await StorageService(uid: uid).uploadRoomImage(file);
+  }
+
+  _onCreate(String roomName, String roomId, String roomSize, String roomImageUrl, String uid) async {
+    RoomModel roomModel = new RoomModel(roomId, roomName, roomSize, roomImageUrl);
+    await DatabaseService(uid: uid).addRoomData(roomName, roomId, roomSize, roomImageUrl);
     setState(() {
       isLoading = false;
     });
@@ -46,10 +57,8 @@ class _RoomState extends State<Room> {
     User user = Provider.of<User>(context);
     return Scaffold(
       drawer: LeftNavigation(),
-      appBar: AppBar(
-        backgroundColor: Color(0Xff5f72a9),
-        elevation: 10.0,
-        title: Text('Room'),
+      appBar: CustomAppBar(
+        title: "Room",
       ),
       //drawer: LeftNavigation(),
       body: Container(

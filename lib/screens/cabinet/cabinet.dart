@@ -6,6 +6,7 @@ import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_form.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_list.dart';
+import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/custom/left_navigation.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:provider/provider.dart';
@@ -47,11 +48,7 @@ class _CabinetState extends State<Cabinet> {
     return Scaffold(
       body: CabinetList(),
       drawer: LeftNavigation(),
-      appBar: AppBar(
-        backgroundColor: Color(0Xff5f72a9),
-        elevation: 10.0,
-        title: Text('Cabinet'),
-      ),
+      appBar: CustomAppBar(title: "Cabinet",),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {

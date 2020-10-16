@@ -23,11 +23,12 @@ class DatabaseService {
     return _db.collection('user').doc(uid).collection('cabinet');
   }
 
-  Future addRoomData(String roomName, String roomId, String roomSize) async {
+  Future addRoomData(String roomName, String roomId, String roomSize, String roomImageUrl) async {
     _getRoomCollectionReference().add({
       'roomName' : roomName,
       'roomId' : roomId,
       'roomSize' : roomSize,
+      'roomImageUrl' : roomImageUrl
     });
   }
 

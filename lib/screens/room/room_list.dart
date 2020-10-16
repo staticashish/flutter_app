@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/room_model.dart';
@@ -39,6 +40,7 @@ class _RoomListState extends State<RoomList> {
             String roomName = _rooms[index].roomName;
             String roomId = _rooms[index].roomId;
             String roomSize = _rooms[index].roomSize;
+            String roomImageUrl = _rooms[index].roomImageUrl;
 
             return Dismissible(
               key: Key(roomId),
@@ -73,9 +75,11 @@ class _RoomListState extends State<RoomList> {
                     //bottomLeft: Radius.circular(5)
                   ),
                 ),
-                child: ExpansionTile(
-                  leading: Image.asset("assets/images/img_home_room.png"),
-                  tilePadding: EdgeInsets.fromLTRB(10, 15, 0, 15),
+                child: ListTile(
+                  leading: roomImageUrl != null
+                      ? Image.network(roomImageUrl.toString(),)
+                      : Image.asset("assets/images/img_home_room.png"),
+                  contentPadding: EdgeInsets.all(0),
                   title: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -87,14 +91,6 @@ class _RoomListState extends State<RoomList> {
                     ),
                   ),
                   trailing: _showMenuButton(),
-                  children: [
-                    ListTile(
-                      title: Text(roomId),
-                    ),
-                    ListTile(
-                      title: Text(roomSize),
-                    ),
-                  ],
                 ),
               ),
             );
@@ -128,25 +124,25 @@ class _RoomListState extends State<RoomList> {
     }
 
     return await showCupertinoDialog<bool>(
-      context: context,
-      builder: (context) => CupertinoAlertDialog(
-        content: Text("Are you sure you want to $action?"),
-        actions: <Widget>[
-          CupertinoDialogAction(
-            child: Text("Ok"),
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            content: Text("Are you sure you want to $action?"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text('Cancel'),
+                onPressed: () {
+                  return Navigator.of(context).pop(false);
+                },
+              )
+            ],
           ),
-          CupertinoDialogAction(
-            child: Text('Cancel'),
-            onPressed: () {
-              return Navigator.of(context).pop(false);
-            },
-          )
-        ],
-      ),
-    ) ??
+        ) ??
         false; // In case the user dismisses the dialog by clicking away from it
   }
 }

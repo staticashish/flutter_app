@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/custom/left_navigation.dart';
 
 class Home extends StatefulWidget {
@@ -11,10 +12,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: LeftNavigation(),
-      appBar: AppBar(
-        backgroundColor: Color(0Xff5f72a9),
-        elevation: 10.0,
-        title: Text('Home'),
+      appBar: CustomAppBar(
+        title: "Home",
       ),
       //drawer: LeftNavigation(),
       body: Center(
