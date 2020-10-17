@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CustomListTile extends StatefulWidget {
+class CustomNavListTile extends StatefulWidget {
   IconData icon;
   String tileText;
   Function action;
 
-  CustomListTile(this.icon, this.tileText, this.action);
+  CustomNavListTile(this.icon, this.tileText, this.action);
 
   @override
-  _CustomListTileState createState() => _CustomListTileState();
+  _CustomNavListTileState createState() => _CustomNavListTileState();
 }
 
-class _CustomListTileState extends State<CustomListTile> {
+class _CustomNavListTileState extends State<CustomNavListTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(

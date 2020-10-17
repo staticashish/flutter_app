@@ -2,7 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
-import 'package:flutter_app/screens/custom/left_navigation.dart';
+import 'file:///C:/Nisha/projects/mobile-app/flutter_app/lib/screens/navigation/left_navigation.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Thing extends StatefulWidget {

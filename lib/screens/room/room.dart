@@ -3,11 +3,9 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/bottom_naviagation_item.dart';
 import 'package:flutter_app/models/room_model.dart';
-import 'package:flutter_app/screens/custom/bottom_navigation.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
-import 'package:flutter_app/screens/custom/left_navigation.dart';
+import 'package:flutter_app/screens/navigation/left_navigation.dart';
 import 'package:flutter_app/screens/room/room_form.dart';
 import 'package:flutter_app/screens/room/room_list.dart';
 import 'package:flutter_app/services/database_service.dart';
@@ -60,7 +58,6 @@ class _RoomState extends State<Room> {
       appBar: CustomAppBar(
         title: "Room",
       ),
-      //drawer: LeftNavigation(),
       body: Container(
         child: RoomList(),
       ),

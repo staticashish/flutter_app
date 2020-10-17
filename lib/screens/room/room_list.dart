@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_list.dart';
+import 'package:flutter_app/screens/custom/custom_data_list_tile.dart';
+import 'package:flutter_app/screens/room/room_details.dart';
 import 'package:provider/provider.dart';
 
 class RoomList extends StatefulWidget {
@@ -27,6 +29,14 @@ class _RoomListState extends State<RoomList> {
             MaterialPageRoute(builder: (_) => Cabinet()),
           );
         });
+  }
+
+  _onTapped() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => RoomDetails()),
+    );
   }
 
   @override
@@ -63,36 +73,56 @@ class _RoomListState extends State<RoomList> {
                   _rooms.removeAt(index);
                 });
               },
-              child: Card(
+              child: CustomDataListTile(
+                onTap: _onTapped,
+                imageUrl: roomImageUrl,
+                tileText: roomName,
+              ),
+              /*Card(
                 shadowColor: Color(0Xff5f72a9),
                 elevation: 10,
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                    //bottomRight: Radius.circular(5),
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                    //bottomLeft: Radius.circular(5)
-                  ),
+                      bottomRight: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
                 ),
-                child: ListTile(
-                  leading: roomImageUrl != null
-                      ? Image.network(roomImageUrl.toString(),)
-                      : Image.asset("assets/images/img_home_room.png"),
-                  contentPadding: EdgeInsets.all(0),
-                  title: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      roomName,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color(0Xff334a7d)),
+                child: InkWell(
+                  splashColor: Color(0Xff334a7d),
+                  onTap: () {
+                    print("wow");
+                  },
+                  child: ListTile(
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 25.0,
+                      horizontal: 20.0,
                     ),
+
+                    onTap: () {
+                      print("pressed");
+                    },
+                    leading: roomImageUrl != null
+                        ? Image.network(
+                            roomImageUrl.toString(),
+                          )
+                        : Image.asset("assets/images/img_home_room.png"),
+                    //contentPadding: EdgeInsets.all(0),
+                    title: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        roomName,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Color(0Xff334a7d)),
+                      ),
+                    ),
+                    trailing: _showMenuButton(),
                   ),
-                  trailing: _showMenuButton(),
                 ),
-              ),
+              ),*/
             );
           });
     } else {

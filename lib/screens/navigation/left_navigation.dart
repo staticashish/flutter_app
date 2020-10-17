@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/custom/custom_list_tile.dart';
+import 'package:flutter_app/screens/custom/custom_nav_list_tile.dart';
 import 'package:flutter_app/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
@@ -53,19 +53,19 @@ class _LeftNavigationState extends State<LeftNavigation> {
                   ),
                 )
             ),
-            CustomListTile(Icons.person,
+            CustomNavListTile(Icons.person,
                 'Profile',
                     () {
                   print('tap profile');
                 }
             ),
-            CustomListTile(Icons.settings,
+            CustomNavListTile(Icons.settings,
                 'Setting',
                     () {
                   print('tap setting');
                 }
             ),
-            CustomListTile(Icons.lock,
+            CustomNavListTile(Icons.lock,
                 'Logout',
                     () async {
                   await _authService.signOut();

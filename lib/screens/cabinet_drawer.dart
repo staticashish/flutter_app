@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
-import 'package:flutter_app/screens/custom/left_navigation.dart';
+import 'file:///C:/Nisha/projects/mobile-app/flutter_app/lib/screens/navigation/left_navigation.dart';
 
 class CabinetDrawer extends StatefulWidget {
   @override

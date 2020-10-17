@@ -7,7 +7,7 @@ import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_form.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_list.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
-import 'package:flutter_app/screens/custom/left_navigation.dart';
+import 'file:///C:/Nisha/projects/mobile-app/flutter_app/lib/screens/navigation/left_navigation.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:provider/provider.dart';
 
