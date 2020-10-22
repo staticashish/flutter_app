@@ -28,7 +28,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           buildBottomNavigationBarItem(AppIcons.living_room,"Room"),
           buildBottomNavigationBarItem(AppIcons.cabinet,"Cabinet"),
           buildBottomNavigationBarItem(AppIcons.cabinet_drawer,"Drawer"),
-          buildBottomNavigationBarItem(AppIcons.tools_things,"Thing"),
+          buildBottomNavigationBarItem(AppIcons.tools_things,"Item"),
         ]
     );
   }

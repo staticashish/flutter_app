@@ -4,12 +4,11 @@ import 'package:flutter_app/models/bottom_naviagation_item.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet.dart';
-import 'file:///C:/Nisha/projects/mobile-app/flutter_app/lib/screens/navigation/bottom_navigation.dart';
-import 'file:///C:/Nisha/projects/mobile-app/flutter_app/lib/screens/navigation/left_navigation.dart';
 import 'package:flutter_app/screens/cabinet_drawer.dart';
+import 'package:flutter_app/screens/navigation/bottom_navigation.dart';
 import 'package:flutter_app/screens/room/room.dart';
 import 'package:flutter_app/screens/home.dart';
-import 'package:flutter_app/screens/thing.dart';
+import 'package:flutter_app/screens/item.dart';
 import 'package:flutter_app/services/auth_service.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +31,7 @@ class _NavigationState extends State<Navigation> {
   }
 
   TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  List<Widget> widgetOptions = <Widget>[Home(), Room(), Cabinet(), CabinetDrawer(), Thing()];
+  List<Widget> widgetOptions = <Widget>[Home(), Room(), Cabinet(), CabinetDrawer(), Item()];
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/room/room_name_with_image.dart';
 
 class RoomDetailsData extends StatelessWidget {
+
+  final RoomModel room;
+  RoomDetailsData({this.room});
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -23,7 +29,7 @@ class RoomDetailsData extends StatelessWidget {
                     ),
                   ),
                 ),
-                RoomNameWithImage()
+                RoomNameWithImage(room: this.room,)
               ],
             ),
           )

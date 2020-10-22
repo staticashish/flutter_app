@@ -14,23 +14,17 @@ class Welcome extends StatelessWidget {
     return Container(
       child: SafeArea(
         child: SplashScreen(
-          seconds: 5,
+          seconds: 3,
           navigateAfterSeconds: Wrapper(),
           loaderColor: Colors.black,
-          image: Image.asset("assets/images/gif_shelves.gif"),
-          title: Text(
-            'FlutterApp',
-            style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Color(0Xff2b3c63)),
+          image: Image.asset(
+            "assets/images/img_app_logo.png",
           ),
-          photoSize: 100,
+          photoSize: 200,
           gradientBackground: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Color(0Xffdfe1ee),
                 Color(0Xffdfe1ee),
                 Color(0Xffffffff)
               ]),

@@ -31,14 +31,6 @@ class _RoomListState extends State<RoomList> {
         });
   }
 
-  _onTapped() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => RoomDetails()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final _rooms = Provider.of<List<RoomModel>>(context);
@@ -47,13 +39,10 @@ class _RoomListState extends State<RoomList> {
           shrinkWrap: true,
           itemCount: _rooms.length,
           itemBuilder: (BuildContext context, int index) {
-            String roomName = _rooms[index].roomName;
-            String roomId = _rooms[index].roomId;
-            String roomSize = _rooms[index].roomSize;
-            String roomImageUrl = _rooms[index].roomImageUrl;
+            RoomModel currentRoom = _rooms[index];
 
             return Dismissible(
-              key: Key(roomId),
+              key: Key(currentRoom.roomId),
               confirmDismiss: (direction) => promptUser(direction),
               background: Container(
                 alignment: AlignmentDirectional.centerEnd,
@@ -68,61 +57,27 @@ class _RoomListState extends State<RoomList> {
                 ),
               ),
               onDismissed: (direction) {
-                print(_rooms[index].roomName);
                 setState(() {
                   _rooms.removeAt(index);
                 });
               },
-              child: CustomDataListTile(
-                onTap: _onTapped,
-                imageUrl: roomImageUrl,
-                tileText: roomName,
-              ),
-              /*Card(
-                shadowColor: Color(0Xff5f72a9),
-                elevation: 10,
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10)),
-                ),
-                child: InkWell(
-                  splashColor: Color(0Xff334a7d),
-                  onTap: () {
-                    print("wow");
-                  },
-                  child: ListTile(
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 25.0,
-                      horizontal: 20.0,
-                    ),
-
-                    onTap: () {
-                      print("pressed");
-                    },
-                    leading: roomImageUrl != null
-                        ? Image.network(
-                            roomImageUrl.toString(),
-                          )
-                        : Image.asset("assets/images/img_home_room.png"),
-                    //contentPadding: EdgeInsets.all(0),
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        roomName,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Color(0Xff334a7d)),
+              child: InkWell(
+                splashColor: Color(0Xff334a7d),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RoomDetails(
+                        room: currentRoom,
                       ),
                     ),
-                    trailing: _showMenuButton(),
-                  ),
+                  );
+                },
+                child: CustomDataListTile(
+                  tileText: currentRoom.roomName,
+                  imageUrl: currentRoom.roomImageUrl,
                 ),
-              ),*/
+              ),
             );
           });
     } else {

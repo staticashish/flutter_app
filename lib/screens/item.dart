@@ -2,15 +2,15 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
-import 'file:///C:/Nisha/projects/mobile-app/flutter_app/lib/screens/navigation/left_navigation.dart';
+import 'package:flutter_app/screens/navigation/left_navigation.dart';
 import 'package:path_provider/path_provider.dart';
 
-class Thing extends StatefulWidget {
+class Item extends StatefulWidget {
   @override
-  _ThingState createState() => _ThingState();
+  _ItemState createState() => _ItemState();
 }
 
-class _ThingState extends State<Thing> {
+class _ItemState extends State<Item> {
 
   CameraController cameraController;
   List cameras;
@@ -41,7 +41,7 @@ class _ThingState extends State<Thing> {
     return Scaffold(
       drawer: LeftNavigation(),
       appBar: CustomAppBar(
-        title: "Thing",
+        title: "Item",
       ),
       //drawer: LeftNavigation(),
       body: Center(
