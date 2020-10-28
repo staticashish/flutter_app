@@ -14,7 +14,7 @@ class _CustomDataListTileState extends State<CustomDataListTile> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+      padding: const EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 1.0),
       child: Card(
         elevation: 15,
         shadowColor: Color(0Xff334a7d),

@@ -20,12 +20,20 @@ class RoomDetailsData extends StatelessWidget {
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(top: size.height * 0.4),
+                  width: 500,
                   height: 500,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("hi"),
+                    ],
+                  ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Color(0Xff808cba),
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                     ),
                   ),
                 ),

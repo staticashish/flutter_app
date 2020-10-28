@@ -10,10 +10,12 @@ import 'package:flutter_app/screens/room/room_form.dart';
 import 'package:flutter_app/screens/room/room_list.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:flutter_app/services/storage_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class Room extends StatefulWidget {
-  ValueChanged<int> onTabSelected;
+  final ValueChanged<int> onTabSelected;
 
   Room({this.onTabSelected});
 
@@ -24,6 +26,17 @@ class Room extends StatefulWidget {
 class _RoomState extends State<Room> {
   bool isLoading = false;
 
+  void _showToast(String messageText) {
+    Fluttertoast.showToast(
+        msg: messageText,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Color(0Xff586181),
+        textColor: Colors.white,
+        fontSize: 15.0);
+  }
+
   void _showRoomAdd() {
     setState(() {
       isLoading = true;
@@ -31,10 +44,10 @@ class _RoomState extends State<Room> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => RoomForm(
-                onCreate: _onCreate,
-                onUploadRoomImage: _uploadRoomImage,
-              )),
+        builder: (context) => RoomForm(
+          onCreate: _onCreate,
+        ),
+      ),
     );
   }
 
@@ -42,12 +55,26 @@ class _RoomState extends State<Room> {
     return await StorageService(uid: uid).uploadRoomImage(file);
   }
 
-  _onCreate(String roomName, String roomId, String roomSize, String roomImageUrl, String uid) async {
-    RoomModel roomModel = new RoomModel(roomId, roomName, roomSize, roomImageUrl);
-    await DatabaseService(uid: uid).addRoomData(roomName, roomId, roomSize, roomImageUrl);
+  _onCreate(String roomName, String roomId, String roomSize,
+      String roomImageName, PickedFile file, String uid) async {
+    String roomImageUrl =
+        await StorageService(uid: uid).uploadRoomImage(File(file.path));
+    RoomModel roomModel =
+        new RoomModel(roomId, roomName, roomSize, roomImageUrl, roomImageName);
+    await DatabaseService(uid: uid).addRoomData(roomModel);
     setState(() {
       isLoading = false;
     });
+    _showToast("Room Created");
+  }
+
+  _onDelete(String roomImageName, String roomDocId, String uid) async {
+    await StorageService(uid: uid).deleteRoomImage(roomImageName);
+    await DatabaseService(uid: uid, docId: roomDocId).deleteRoomData();
+    setState(() {
+      isLoading = false;
+    });
+    _showToast("Room Deleted");
   }
 
   @override
@@ -58,8 +85,12 @@ class _RoomState extends State<Room> {
       appBar: CustomAppBar(
         title: "Room",
       ),
-      body: Container(
-        child: RoomList(),
+      body: isLoading ? Container(
+        child: Center(child: CircularProgressIndicator())
+      ) : Container(
+        child: RoomList(
+          onDelete: _onDelete,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

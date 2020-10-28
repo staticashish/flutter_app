@@ -19,7 +19,7 @@ class _RoomDetailsState extends State<RoomDetails> {
       appBar: CustomAppBar(
         title: "Room Details",
       ),
-      backgroundColor: Color(0Xff808cba),
+      //backgroundColor: Color(0Xff808cba),
       body: RoomDetailsData(
         room: widget.room,
       ),

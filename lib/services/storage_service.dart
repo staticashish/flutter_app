@@ -23,4 +23,9 @@ class StorageService {
     print("saved file with url : "+ url);
     return url;
   }
+
+  Future<void> deleteRoomImage(String roomImageName) async {
+    print("deleting file : [ "+roomImageName+" ]");
+    _getRoomStorageReference().child(roomImageName).delete();
+  }
 }

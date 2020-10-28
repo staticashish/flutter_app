@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/services/storage_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class RoomForm extends StatefulWidget {
   final Function onCreate;
-  final Function onUploadRoomImage;
-
-  RoomForm({this.onCreate, this.onUploadRoomImage});
+  RoomForm({this.onCreate});
 
   @override
   _RoomFormState createState() => _RoomFormState();
@@ -24,11 +23,13 @@ class _RoomFormState extends State<RoomForm> {
   String roomName;
   String roomId;
   String roomSize;
-  String roomImageUrl;
   PickedFile _image;
 
   _imgFromCamera() async {
-    PickedFile image = await ImagePicker().getImage(source: ImageSource.camera);
+    PickedFile image = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxHeight: 250.0,
+    );
     setState(() {
       _image = image;
     });
@@ -142,7 +143,6 @@ class _RoomFormState extends State<RoomForm> {
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       hintText: 'Living room',
-                      //prefixIcon: new Icon(Icons.person, color: Color(0Xff334a7d)),
                       hintStyle: GoogleFonts.lato(color: Colors.grey[500]),
                       labelText: "Enter Room Name",
                       fillColor: Colors.white,
@@ -180,7 +180,6 @@ class _RoomFormState extends State<RoomForm> {
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       hintText: '100m2',
-                      //prefixIcon: new Icon(Icons.email, color: Color(0Xff334a7d)),
                       hintStyle: GoogleFonts.lato(color: Colors.grey[500]),
                       labelText: "Enter Room Size",
                       fillColor: Colors.white,
@@ -216,13 +215,9 @@ class _RoomFormState extends State<RoomForm> {
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
                         roomId = uuid.v1();
-                        print(_image.path);
-                        roomImageUrl = await widget.onUploadRoomImage(
-                          File(_image.path),
-                          user.uid,
-                        );
+                        String roomImageName = basename(_image.path);
                         widget.onCreate(
-                            roomName, roomId, roomSize, roomImageUrl, user.uid);
+                            roomName, roomId, roomSize, roomImageName, _image, user.uid);
                         Navigator.pop(context);
                       }
                     },

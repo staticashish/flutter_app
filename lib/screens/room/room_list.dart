@@ -1,14 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet.dart';
-import 'package:flutter_app/screens/cabinet/cabinet_list.dart';
 import 'package:flutter_app/screens/custom/custom_data_list_tile.dart';
 import 'package:flutter_app/screens/room/room_details.dart';
 import 'package:provider/provider.dart';
 
 class RoomList extends StatefulWidget {
+
+  final Function onDelete;
+  RoomList({this.onDelete});
+
   @override
   _RoomListState createState() => _RoomListState();
 }
@@ -34,6 +37,7 @@ class _RoomListState extends State<RoomList> {
   @override
   Widget build(BuildContext context) {
     final _rooms = Provider.of<List<RoomModel>>(context);
+    final _user = Provider.of<User>(context);
     if (_rooms != null && _rooms.length > 0) {
       return ListView.builder(
           shrinkWrap: true,
@@ -43,7 +47,7 @@ class _RoomListState extends State<RoomList> {
 
             return Dismissible(
               key: Key(currentRoom.roomId),
-              confirmDismiss: (direction) => promptUser(direction),
+              confirmDismiss: (direction) => promptUser(direction, currentRoom, _user),
               background: Container(
                 alignment: AlignmentDirectional.centerEnd,
                 color: Color(0Xffba504b),
@@ -100,7 +104,7 @@ class _RoomListState extends State<RoomList> {
     }
   }
 
-  Future<bool> promptUser(DismissDirection direction) async {
+  Future<bool> promptUser(DismissDirection direction, RoomModel room, User user) async {
     String action;
     if (direction == DismissDirection.startToEnd) {
       action = "archive";
@@ -116,6 +120,10 @@ class _RoomListState extends State<RoomList> {
               CupertinoDialogAction(
                 child: Text("Ok"),
                 onPressed: () {
+                  print(room.roomName);
+                  print(room.roomName);
+                  print(room.roomImageName);
+                  widget.onDelete(room.roomImageName, room.key, user.uid);
                   Navigator.of(context).pop(true);
                 },
               ),

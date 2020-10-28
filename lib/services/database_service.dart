@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
+import 'package:flutter_app/services/storage_service.dart';
 
 class DatabaseService {
 
@@ -23,13 +24,12 @@ class DatabaseService {
     return _db.collection('user').doc(uid).collection('cabinet');
   }
 
-  Future addRoomData(String roomName, String roomId, String roomSize, String roomImageUrl) async {
-    _getRoomCollectionReference().add({
-      'roomName' : roomName,
-      'roomId' : roomId,
-      'roomSize' : roomSize,
-      'roomImageUrl' : roomImageUrl
-    });
+  Future addRoomData(RoomModel roomModel) async {
+    _getRoomCollectionReference().add(roomModel.toJson());
+  }
+
+  Future deleteRoomData() async {
+    _getRoomCollectionReference().doc(this.docId).delete();
   }
 
   Future addCabinetData(String cabinetName, String cabinetId, String cabinetSize) async {
