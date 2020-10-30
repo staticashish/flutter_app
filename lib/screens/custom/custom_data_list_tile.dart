@@ -16,7 +16,7 @@ class _CustomDataListTileState extends State<CustomDataListTile> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(1.0, 1.0, 1.0, 1.0),
       child: Card(
-        elevation: 15,
+        elevation: 3,
         shadowColor: Color(0Xff334a7d),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),

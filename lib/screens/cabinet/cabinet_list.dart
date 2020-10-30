@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
+import 'package:flutter_app/screens/custom/custom_data_list_tile.dart';
 import 'package:provider/provider.dart';
 
 class CabinetList extends StatefulWidget {
+
+  final Function onDelete;
+  const CabinetList({Key key, this.onDelete}) : super(key: key);
+
   @override
   _CabinetListState createState() => _CabinetListState();
 }
@@ -30,11 +35,10 @@ class _CabinetListState extends State<CabinetList> {
           shrinkWrap: true,
           itemCount: _cabinets.length,
           itemBuilder: (BuildContext context, int index) {
-            String cabinetName = _cabinets[index].cabinetName;
-            String cabinetId = _cabinets[index].cabinetId;
+            CabinetModel currentCabinet = _cabinets[index];
 
             return Dismissible(
-              key: Key(cabinetId),
+              key: Key(currentCabinet.cabinetId),
               confirmDismiss: (direction) => promptUser(direction),
               background: Container(
                 alignment: AlignmentDirectional.centerEnd,
@@ -49,42 +53,25 @@ class _CabinetListState extends State<CabinetList> {
                 ),
               ),
               onDismissed: (direction) {
-                print(_cabinets[index].cabinetName);
                 setState(() {
                   _cabinets.removeAt(index);
                 });
               },
-              child: Card(
-                shadowColor: Color(0Xff5f72a9),
-                elevation: 10,
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    // bottomRight: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                    // bottomLeft: Radius.circular(10)
-                  ),
-                ),
-                child: ExpansionTile(
-                  leading: Image.asset("assets/images/img_home_room.png"),
-                  tilePadding: EdgeInsets.fromLTRB(10, 15, 0, 15),
-                  title: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      cabinetName,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color(0Xff334a7d)),
+              child: InkWell(
+                splashColor: Color(0Xff334a7d),
+                onTap: () {
+                  /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RoomDetails(
+                        room: currentRoom,
+                      ),
                     ),
-                  ),
-                  trailing: _showMenuButton(),
-                  children: [
-                    ListTile(
-                      title: Text(cabinetId),
-                    )
-                  ],
+                  );*/
+                },
+                child: CustomDataListTile(
+                  tileText: currentCabinet.cabinetName,
+                  imageUrl: currentCabinet.cabinetImageUrl,
                 ),
               ),
             );

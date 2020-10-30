@@ -3,8 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_app/screens/custom/app_icons.dart';
 
 class BottomNavigation extends StatefulWidget {
-  int index;
-  Function onTapFunction;
+  final int index;
+  final Function onTapFunction;
 
   BottomNavigation({this.index, this.onTapFunction});
 

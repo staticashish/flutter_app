@@ -32,13 +32,8 @@ class DatabaseService {
     _getRoomCollectionReference().doc(this.docId).delete();
   }
 
-  Future addCabinetData(String cabinetName, String cabinetId, String cabinetSize) async {
-    _getCabinetCollectionReference().add({
-      'cabinetName' : cabinetName,
-      'cabinetId' : cabinetId,
-      'cabinetSize' : cabinetSize,
-      this.docId : true
-    });
+  Future addCabinetData(CabinetModel cabinetModel) async {
+    _getCabinetCollectionReference().add(cabinetModel.toJson());
   }
 
   Future updateUserData(String displayName, String email) async {
@@ -63,7 +58,6 @@ class DatabaseService {
   }
 
   List<CabinetModel> _cabinetListFromSnapshot(QuerySnapshot snapshot) {
-    print(snapshot.docs);
     return snapshot.docs.map((doc) {
       return CabinetModel.fromSnapshot(doc);
     }).toList();

@@ -38,9 +38,6 @@ class _RoomState extends State<Room> {
   }
 
   void _showRoomAdd() {
-    setState(() {
-      isLoading = true;
-    });
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -65,7 +62,7 @@ class _RoomState extends State<Room> {
     setState(() {
       isLoading = false;
     });
-    _showToast("Room Created");
+    _showToast("Room Added");
   }
 
   _onDelete(String roomImageName, String roomDocId, String uid) async {
@@ -85,18 +82,15 @@ class _RoomState extends State<Room> {
       appBar: CustomAppBar(
         title: "Room",
       ),
-      body: isLoading ? Container(
-        child: Center(child: CircularProgressIndicator())
-      ) : Container(
-        child: RoomList(
-          onDelete: _onDelete,
-        ),
-      ),
+      body: isLoading
+          ? Container(child: Center(child: CircularProgressIndicator()))
+          : Container(
+              child: RoomList(
+                onDelete: _onDelete,
+              ),
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            isLoading = true;
-          });
           _showRoomAdd();
         },
         child: Icon(Icons.add),

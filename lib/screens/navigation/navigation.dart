@@ -24,7 +24,6 @@ class _NavigationState extends State<Navigation> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    print("==>.."+index.toString());
     setState(() {
       _selectedIndex = index;
     });
