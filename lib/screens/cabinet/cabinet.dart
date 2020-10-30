@@ -66,12 +66,9 @@ class _CabinetState extends State<Cabinet> {
     _showToast("Cabinet Added");
   }
 
-  _onDelete(String roomImageName, String roomDocId, String uid) async {
-    await StorageService(uid: uid).deleteRoomImage(roomImageName);
-    await DatabaseService(uid: uid, docId: roomDocId).deleteRoomData();
-    setState(() {
-      isLoading = false;
-    });
+  _onDelete(String cabinetImageName, String roomDocId, String uid) async {
+    await StorageService(uid: uid).deleteCabinetImage(cabinetImageName);
+    await DatabaseService(uid: uid, docId: roomDocId).deleteCabinetData();
     _showToast("Cabinet Removed");
   }
 

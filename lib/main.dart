@@ -24,6 +24,11 @@ class MyApp extends StatelessWidget {
           textTheme: GoogleFonts.notoSansTextTheme(
             Theme.of(context).textTheme,
           ),
+          pageTransitionsTheme: PageTransitionsTheme(
+            builders: <TargetPlatform, PageTransitionsBuilder>{
+              TargetPlatform.android: ZoomPageTransitionsBuilder(),
+            },
+          )
         ),
         home: Welcome(),
       ),

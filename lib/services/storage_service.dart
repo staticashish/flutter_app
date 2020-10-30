@@ -42,4 +42,9 @@ class StorageService {
     print("deleting file : [ "+roomImageName+" ]");
     _getRoomStorageReference().child(roomImageName).delete();
   }
+
+  Future<void> deleteCabinetImage(String cabinetImageName) async {
+    print("deleting file : [ "+cabinetImageName+" ]");
+    _getCabinetStorageReference().child(cabinetImageName).delete();
+  }
 }

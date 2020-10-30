@@ -32,6 +32,10 @@ class DatabaseService {
     _getRoomCollectionReference().doc(this.docId).delete();
   }
 
+  Future deleteCabinetData() async {
+    _getCabinetCollectionReference().doc(this.docId).delete();
+  }
+
   Future addCabinetData(CabinetModel cabinetModel) async {
     _getCabinetCollectionReference().add(cabinetModel.toJson());
   }

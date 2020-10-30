@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/bottom_naviagation_item.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet.dart';

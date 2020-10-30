@@ -25,6 +25,7 @@ class _RoomFormState extends State<RoomForm> {
   String roomName;
   String roomId;
   String roomSize;
+  String roomDescription;
   PickedFile _image;
   bool _isLoading = false;
 
@@ -91,7 +92,7 @@ class _RoomFormState extends State<RoomForm> {
           child: Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
                     Padding(
@@ -171,7 +172,47 @@ class _RoomFormState extends State<RoomForm> {
                         });
                       },
                     ),
-                    SizedBox(height: 30.0),
+                    SizedBox(height: 20.0),
+                    TextFormField(
+                      validator: (val) {
+                        if (val.isEmpty) {
+                          return "Please enter a room description";
+                        }
+                        return null;
+                      },
+                      obscureText: false,
+                      maxLines: 3,
+                      maxLength: 200,
+                      keyboardType: TextInputType.multiline,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        hintText: 'Description of living room',
+                        hintStyle: GoogleFonts.lato(color: Colors.grey[500]),
+                        labelText: "Enter Room Description",
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                          const BorderSide(color: Colors.grey, width: 2.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            color: Colors.blueGrey,
+                            width: 2.0,
+                          ),
+                        ),
+                      ),
+                      onChanged: (val) {
+                        setState(() {
+                          roomDescription = val;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 20.0),
                     TextFormField(
                       validator: (val) {
                         if (val.isEmpty) {

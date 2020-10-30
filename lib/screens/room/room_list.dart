@@ -119,11 +119,8 @@ class _RoomListState extends State<RoomList> {
             actions: <Widget>[
               CupertinoDialogAction(
                 child: Text("Ok"),
-                onPressed: () {
-                  print(room.roomName);
-                  print(room.roomName);
-                  print(room.roomImageName);
-                  widget.onDelete(room.roomImageName, room.key, user.uid);
+                onPressed: () async {
+                  await widget.onDelete(room.roomImageName, room.key, user.uid);
                   Navigator.of(context).pop(true);
                 },
               ),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
+import 'package:flutter_app/screens/cabinet/cabinet_name_with_image.dart';
 import 'package:flutter_app/screens/room/room_name_with_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RoomDetailsData extends StatelessWidget {
-  final RoomModel room;
+class CabinetDetailsData extends StatelessWidget {
+  final CabinetModel cabinet;
 
-  RoomDetailsData({this.room});
+  CabinetDetailsData({this.cabinet});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class RoomDetailsData extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "Room Name",
+                              "Cabinet Name",
                               style: TextStyle(
                                 color: Color(0Xffffffff),
                                 fontSize: 15,
@@ -42,7 +43,7 @@ class RoomDetailsData extends StatelessWidget {
                               height: 5,
                             ),
                             Text(
-                              this.room.roomName,
+                              this.cabinet.cabinetName,
                               style: TextStyle(
                                 color: Color(0Xffffffff),
                                 fontSize: 25,
@@ -58,7 +59,7 @@ class RoomDetailsData extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Room Size",
+                              "Cabinet Size",
                               style: TextStyle(
                                 color: Color(0Xffffffff),
                                 fontSize: 15,
@@ -68,7 +69,7 @@ class RoomDetailsData extends StatelessWidget {
                               height: 5,
                             ),
                             Text(
-                              this.room.roomSize,
+                              this.cabinet.cabinetSize,
                               style: TextStyle(
                                 color: Color(0Xffffffff),
                                 fontSize: 25,
@@ -88,8 +89,8 @@ class RoomDetailsData extends StatelessWidget {
                     ),
                   ),
                 ),
-                RoomNameWithImage(
-                  room: this.room,
+                CabinetNameWithImage(
+                  cabinet: this.cabinet,
                 )
               ],
             ),

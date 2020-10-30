@@ -58,7 +58,7 @@ class _CabinetFormState extends State<CabinetForm> {
               children: <Widget>[
                 new ListTile(
                     leading: new Icon(Icons.photo_library),
-                    title: new Text('Gallary'),
+                    title: new Text('Gallery'),
                     onTap: () {
                       _imgFromGallery();
                       Navigator.of(context).pop();
@@ -95,7 +95,7 @@ class _CabinetFormState extends State<CabinetForm> {
             child: Form(
                 key: _formKey,
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
                     children: [
                       Padding(
@@ -277,7 +277,7 @@ class _CabinetFormState extends State<CabinetForm> {
                             children: <Widget>[
                               Expanded(
                                 child: Text(
-                                  "Add Room",
+                                  "Add Cabinet",
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.lato(
                                       color: Colors.white,
