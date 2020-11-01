@@ -25,7 +25,13 @@ class DatabaseService {
   }
 
   Future addRoomData(RoomModel roomModel) async {
-    _getRoomCollectionReference().add(roomModel.toJson());
+    _getRoomCollectionReference().add(roomModel.toJson()).then((value) {
+      return value.id;
+    });
+  }
+
+  Future updateRoomData(Map<String, dynamic> data) async {
+    _getRoomCollectionReference().doc(this.docId).update(data);
   }
 
   Future deleteRoomData() async {
@@ -36,22 +42,16 @@ class DatabaseService {
     _getCabinetCollectionReference().doc(this.docId).delete();
   }
 
-  Future addCabinetData(CabinetModel cabinetModel) async {
-    _getCabinetCollectionReference().add(cabinetModel.toJson());
+  Future<String> addCabinetData(CabinetModel cabinetModel) async {
+    return _getCabinetCollectionReference().add(cabinetModel.toJson()).then((value) {
+       return value.id;
+     });
   }
 
   Future updateUserData(String displayName, String email) async {
     _getUserCollectionReference().doc(this.uid).set({
       'displayName' : displayName,
       'email' : email,
-    });
-  }
-
-  Future updateRoomData(String roomName, String roomId, String roomSize) async {
-    _getRoomCollectionReference().doc(this.docId).set({
-      'roomName' : roomName,
-      'roomId' : roomId,
-      'roomSize' : roomSize,
     });
   }
 

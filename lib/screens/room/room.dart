@@ -52,25 +52,19 @@ class _RoomState extends State<Room> {
     return await StorageService(uid: uid).uploadRoomImage(file);
   }
 
-  _onCreate(String roomName, String roomId, String roomSize,
+  _onCreate(String roomName, String roomId, String roomSize, String roomDescription,
       String roomImageName, PickedFile file, String uid) async {
     String roomImageUrl =
         await StorageService(uid: uid).uploadRoomImage(File(file.path));
     RoomModel roomModel =
-        new RoomModel(roomId, roomName, roomSize, roomImageUrl, roomImageName);
+        new RoomModel(roomId, roomName, roomSize, roomDescription, roomImageUrl, roomImageName);
     await DatabaseService(uid: uid).addRoomData(roomModel);
-    setState(() {
-      isLoading = false;
-    });
     _showToast("Room Added");
   }
 
   _onDelete(String roomImageName, String roomDocId, String uid) async {
     await StorageService(uid: uid).deleteRoomImage(roomImageName);
     await DatabaseService(uid: uid, docId: roomDocId).deleteRoomData();
-    setState(() {
-      isLoading = false;
-    });
     _showToast("Room Deleted");
   }
 

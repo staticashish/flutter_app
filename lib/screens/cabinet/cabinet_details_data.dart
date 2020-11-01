@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_name_with_image.dart';
+import 'package:flutter_app/screens/custom/data_field.dart';
 import 'package:flutter_app/screens/room/room_name_with_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,78 +21,61 @@ class CabinetDetailsData extends StatelessWidget {
             height: size.height,
             child: Stack(
               children: <Widget>[
+                CabinetNameWithImage(
+                  cabinet: this.cabinet,
+                ),
                 Container(
-                  margin: EdgeInsets.only(top: size.height * 0.4),
+                  margin: EdgeInsets.only(top: size.height * 0.3),
                   width: 500,
                   height: 500,
                   child: Padding(
                     padding: const EdgeInsets.all(30.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Cabinet Name",
-                              style: TextStyle(
-                                color: Color(0Xffffffff),
-                                fontSize: 15,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              this.cabinet.cabinetName,
-                              style: TextStyle(
-                                color: Color(0Xffffffff),
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Cabinet Size",
-                              style: TextStyle(
-                                color: Color(0Xffffffff),
-                                fontSize: 15,
-                              ),
+                            DataField(
+                              titleText: "Cabinet Name",
+                              valueText: this.cabinet.cabinetName,
                             ),
                             SizedBox(
-                              height: 5,
+                              width: 15,
                             ),
-                            Text(
-                              this.cabinet.cabinetSize,
-                              style: TextStyle(
-                                color: Color(0Xffffffff),
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            DataField(
+                              titleText: "Cabinet Size",
+                              valueText: this.cabinet.cabinetSize,
                             ),
                           ],
-                        )
+                        ),
+                        Divider(
+                          thickness: 5,
+                          height: 30,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            DataField(
+                              titleText: "Cabinet Description",
+                              valueText: this.cabinet.cabinetDescription,
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          thickness: 5,
+                          height: 30,
+                        ),
                       ],
                     ),
                   ),
                   decoration: BoxDecoration(
-                    color: Color(0Xff808cba),
+                    color: Color(0Xffffffff),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
                   ),
                 ),
-                CabinetNameWithImage(
-                  cabinet: this.cabinet,
-                )
               ],
             ),
           )

@@ -7,16 +7,21 @@ class RoomModel {
   String roomSize;
   String roomImageUrl;
   String roomImageName;
+  String roomDescription;
+  List cabinets;
 
-  RoomModel(this.roomId, this.roomName, this.roomSize, this.roomImageUrl, this.roomImageName);
+  RoomModel(this.roomId, this.roomName, this.roomSize, this.roomDescription,
+      this.roomImageUrl, this.roomImageName);
 
-  RoomModel.fromSnapshot(QueryDocumentSnapshot snapshot) :
-        key = snapshot.id,
+  RoomModel.fromSnapshot(QueryDocumentSnapshot snapshot)
+      : key = snapshot.id,
         roomId = snapshot.data()["roomId"],
         roomName = snapshot.data()["roomName"],
         roomSize = snapshot.data()["roomSize"],
         roomImageUrl = snapshot.data()["roomImageUrl"],
-        roomImageName = snapshot.data()["roomImageName"];
+        roomImageName = snapshot.data()["roomImageName"],
+        roomDescription = snapshot.data()["roomDescription"],
+        cabinets = snapshot.data()["cabinets"];
 
 
   toJson() {
@@ -25,7 +30,8 @@ class RoomModel {
       "roomName": roomName,
       "roomSize": roomSize,
       "roomImageUrl": roomImageUrl,
-      "roomImageName": roomImageName
+      "roomImageName": roomImageName,
+      "roomDescription": roomDescription
     };
   }
 }

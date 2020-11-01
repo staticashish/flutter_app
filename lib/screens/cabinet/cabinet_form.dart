@@ -25,6 +25,7 @@ class _CabinetFormState extends State<CabinetForm> {
   String cabinetName;
   String cabinetId;
   String cabinetSize;
+  String cabinetDescription;
   String roomName;
   RoomModel selectedRoom;
   PickedFile _image;
@@ -83,7 +84,7 @@ class _CabinetFormState extends State<CabinetForm> {
   Widget build(BuildContext context) {
     final _rooms = Provider.of<List<RoomModel>>(context);
     final _user = Provider.of<User>(context);
-    if (_rooms != null) {
+    if (_rooms != null && _rooms.length > 0) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0Xff5f72a9),
@@ -124,7 +125,8 @@ class _CabinetFormState extends State<CabinetForm> {
                                 : Container(
                                     decoration: BoxDecoration(
                                         color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(50)),
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
                                     width: 100,
                                     height: 100,
                                     child: Icon(
@@ -158,8 +160,8 @@ class _CabinetFormState extends State<CabinetForm> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                const BorderSide(color: Colors.grey, width: 2.0),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 2.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -193,8 +195,8 @@ class _CabinetFormState extends State<CabinetForm> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                const BorderSide(color: Colors.grey, width: 2.0),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 2.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -209,9 +211,45 @@ class _CabinetFormState extends State<CabinetForm> {
                         },
                       ),
                       SizedBox(height: 20.0),
+                      TextFormField(
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return "Please enter an cabinet description";
+                          }
+                          return null;
+                        },
+                        obscureText: false,
+                        maxLines: 3,
+                        maxLength: 200,
+                        textAlign: TextAlign.left,
+                        decoration: InputDecoration(
+                          hintText: 'cabinet description',
+                          hintStyle: GoogleFonts.lato(color: Colors.grey[500]),
+                          labelText: "Enter Cabinet Description",
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(
+                                color: Colors.blueGrey, width: 2.0),
+                          ),
+                        ),
+                        onChanged: (val) {
+                          setState(() {
+                            cabinetDescription = val;
+                          });
+                        },
+                      ),
+                      SizedBox(height: 20.0),
                       DropdownButtonFormField(
-                        value: roomName,
-                        //decoration: textInputDecoration,
+                        value: selectedRoom != null ? selectedRoom : null,
                         decoration: InputDecoration(
                           hintText: 'Please Select',
                           hintStyle: GoogleFonts.lato(color: Colors.grey[500]),
@@ -222,8 +260,8 @@ class _CabinetFormState extends State<CabinetForm> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                const BorderSide(color: Colors.grey, width: 2.0),
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 2.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -234,10 +272,13 @@ class _CabinetFormState extends State<CabinetForm> {
                         items: _rooms.map((room) {
                           return DropdownMenuItem(
                             value: room,
+                            key: Key(room.key),
                             child: Text(room.roomName),
                           );
                         }).toList(),
-                        onChanged: (val) => setState(() => selectedRoom = val),
+                        onChanged: (val) => setState(
+                          () => selectedRoom = val,
+                        ),
                       ),
                       SizedBox(height: 10.0),
                       RaisedButton(
@@ -257,6 +298,7 @@ class _CabinetFormState extends State<CabinetForm> {
                                 cabinetName,
                                 cabinetId,
                                 cabinetSize,
+                                cabinetDescription,
                                 cabinetImageName,
                                 _image,
                                 _user.uid,
@@ -264,6 +306,7 @@ class _CabinetFormState extends State<CabinetForm> {
                             setState(() {
                               this._isLoading = false;
                             });
+                            selectedRoom = null;
                             Navigator.pop(context);
                           }
                         },
@@ -299,7 +342,7 @@ class _CabinetFormState extends State<CabinetForm> {
         ),
       );
     } else {
-      return CircularProgressIndicator();
+      return Center(child: CircularProgressIndicator());
     }
   }
 }

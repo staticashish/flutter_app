@@ -263,7 +263,7 @@ class _RoomFormState extends State<RoomForm> {
                           });
                           roomId = uuid.v1();
                           String roomImageName = basename(_image.path);
-                          await widget.onCreate(roomName, roomId, roomSize,
+                          await widget.onCreate(roomName, roomId, roomSize, roomDescription,
                               roomImageName, _image, user.uid);
                           setState(() {
                             this._isLoading = false;
