@@ -1,22 +1,23 @@
+import 'dart:ui';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/services/auth_service.dart';
-import 'package:flutter_signin_button/button_view.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sign_button/constants.dart';
+import 'package:sign_button/create_button.dart';
 
 class SignInNew extends StatefulWidget {
-
   final Function toggleView;
-  SignInNew({ this.toggleView});
+
+  SignInNew({this.toggleView});
 
   @override
   _SignInNewState createState() => _SignInNewState();
 }
 
 class _SignInNewState extends State<SignInNew> {
-
   final AuthService _authService = AuthService();
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -28,35 +29,34 @@ class _SignInNewState extends State<SignInNew> {
     showCupertinoDialog(
         context: context,
         builder: (_) => new CupertinoAlertDialog(
-
-          title: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(titleMessage,
-              style: TextStyle(
-                fontWeight: FontWeight.bold
-              ),),
-          ),
-          content: Text(message),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text("Ok"),
-              onPressed: () {
-                Navigator.of(context).pop(true);
-              },
-            )
-          ],
-        ));
+              title: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  titleMessage,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              content: Text(message),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                )
+              ],
+            ));
   }
 
   void _showButtonPressDialog(BuildContext context, String provider) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('$provider Button Pressed!'),
       backgroundColor: Colors.black26,
       duration: Duration(milliseconds: 400),
     ));
   }
 
-  void _toggle(){
+  void _toggle() {
     setState(() {
       _obscuredText = !_obscuredText;
     });
@@ -64,58 +64,26 @@ class _SignInNewState extends State<SignInNew> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.blue[200],
       body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.topRight,
-                colors: [Color(0Xff334a7d),
-                  Color(0Xff2b3c63),
-                  Color(0Xff1b2133),
-                  Color(0Xff1b2133)]
-            )
-        ),
-        child: Column(
-          children: [
-            Flexible(
-                flex: 1,
+        child: SizedBox(
+          child: Stack(
+            children: [
+              Container(
+                height: 250,
                 child: Center(
-                  child: RichText(
-                    text: TextSpan(
-                        children: [
-                          WidgetSpan(
-                              child: Icon(Icons.account_balance,
-                                size: 40,
-                                color: Colors.white,
-                              )
-                          ),
-                          TextSpan(
-                              text: ' Flutter',
-                              style: TextStyle(fontSize: 40)
-                          ),
-                          TextSpan(
-                              text: 'App',
-                              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)
-                          )
-                        ]
-                    ),
+                  child: Image.asset(
+                    "assets/images/img_app_logo.png",
                   ),
-                )
-            ),
-            Flexible(
-                flex: 3,
-                fit: FlexFit.loose,
-                child: SingleChildScrollView(
-                  child: Card(
-                    elevation: 5,
-                    margin: EdgeInsets.all(20.0),
-                    shadowColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  margin: EdgeInsets.only(top: size.height * 0.3),
+                  child: SingleChildScrollView(
                     child: Form(
                         key: _formKey,
                         child: Padding(
@@ -124,9 +92,9 @@ class _SignInNewState extends State<SignInNew> {
                             children: [
                               TextFormField(
                                 validator: (val) {
-                                  if(val.isEmpty) {
+                                  if (val.isEmpty) {
                                     return "Please enter an email";
-                                  } else if(!EmailValidator.validate(val)) {
+                                  } else if (!EmailValidator.validate(val)) {
                                     return "Please enter a valid email";
                                   }
                                   return null;
@@ -135,21 +103,13 @@ class _SignInNewState extends State<SignInNew> {
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   hintText: 'abc@xyz.com',
-                                  prefixIcon: new Icon(Icons.email, color: Color(0Xff334a7d)),
-                                  hintStyle: GoogleFonts.lato(color: Colors.grey[500]),
+                                  prefixIcon: new Icon(Icons.email,
+                                      color: Color(0Xff9cacbf)),
                                   labelText: "Enter Email",
+                                  labelStyle: TextStyle(
+                                    color: Color(0Xff9cacbf),
+                                  ),
                                   fillColor: Colors.white,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(color: Colors.blueGrey, width: 2.0),
-                                  ),
                                 ),
                                 onChanged: (val) {
                                   setState(() {
@@ -157,12 +117,12 @@ class _SignInNewState extends State<SignInNew> {
                                   });
                                 },
                               ),
-                              SizedBox(height: 30.0),
+                              SizedBox(height: 20.0),
                               TextFormField(
                                 validator: (val) {
-                                  if(val.isEmpty) {
+                                  if (val.isEmpty) {
                                     return "Please enter a password";
-                                  } else if(val.length < 6) {
+                                  } else if (val.length < 6) {
                                     return "Please enter password at least 6 char long";
                                   }
                                   return null;
@@ -170,29 +130,20 @@ class _SignInNewState extends State<SignInNew> {
                                 obscureText: _obscuredText,
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
-                                    hintText: '**********',
-                                    hintStyle: GoogleFonts.lato(color: Colors.grey[500]),
-                                    prefixIcon: new Icon(Icons.lock, color: Color(0Xff334a7d)),
-                                    labelText: "Enter Password",
-                                    fillColor: Colors.white,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(color: Colors.grey, width: 2.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(color: Colors.blueGrey, width: 2.0),
-                                    ),
-                                    suffixIcon: IconButton(
-                                        icon: Icon(
-                                            Icons.remove_red_eye,
-                                            color: _obscuredText ? Colors.black12 : Colors.black54
-                                        ),
-                                        onPressed: _toggle
-                                    )
+                                  hintText: '**********',
+                                  prefixIcon: new Icon(Icons.lock,
+                                      color: Color(0Xff9cacbf)),
+                                  labelText: "Enter Password",
+                                  labelStyle: TextStyle(
+                                    color: Color(0Xff9cacbf),
+                                  ),
+                                  fillColor: Colors.white,
+                                  suffixIcon: IconButton(
+                                      icon: Icon(Icons.remove_red_eye_sharp,
+                                          color: _obscuredText
+                                              ? Colors.black12
+                                              : Color(0Xff9cacbf)),
+                                      onPressed: _toggle),
                                 ),
                                 onChanged: (val) {
                                   setState(() {
@@ -200,41 +151,57 @@ class _SignInNewState extends State<SignInNew> {
                                   });
                                 },
                               ),
-                              SizedBox(height: 5.0,),
+                              SizedBox(
+                                height: 5.0,
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
-                                  FlatButton(
+                                  TextButton(
                                     child: new Text(
                                       "Forgot Password?",
-                                      style: GoogleFonts.lato(
-                                        color: Colors.red,
+                                      style: TextStyle(
+                                        color: Color(0Xff2b6684),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 13.0,
+                                        fontSize: 15.0,
                                       ),
                                       textAlign: TextAlign.end,
                                     ),
                                     onPressed: () => {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) => SignInNew())
-                                      )
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SignInNew()))
                                     },
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 5.0,),
-                              RaisedButton(
-                                elevation: 10,
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(10.0),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  // background color
+                                  primary: Color(0Xff00A09A),
+                                  elevation: 10,
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0),
+                                  ),
+                                  textStyle: TextStyle(
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                color: Color(0Xff2b3c63),
                                 onPressed: () async {
-                                  if(_formKey.currentState.validate()){
-                                    dynamic result = await _authService.signInWithEmailAndPassword(email, password);
-                                    if(result.user == null) {
-                                      print("==> "+result.error);
-                                      _showMaterialDialog(result.error, "Error");
+                                  if (_formKey.currentState.validate()) {
+                                    dynamic result = await _authService
+                                        .signInWithEmailAndPassword(
+                                            email, password);
+                                    if (result.user == null) {
+                                      print("==> " + result.error);
+                                      _showMaterialDialog(
+                                          result.error, "Error");
                                     }
                                   }
                                 },
@@ -250,55 +217,70 @@ class _SignInNewState extends State<SignInNew> {
                                         child: Text(
                                           "Login",
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.lato(
+                                          style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 18.0),
+                                              fontSize: 20.0),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 10.0,),
+                              SizedBox(
+                                height: 20.0,
+                              ),
                               Row(
                                 children: <Widget>[
                                   Expanded(
                                     child: new Container(
                                       margin: EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(border: Border.all(width: 0.25)),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(width: 0.25)),
                                     ),
                                   ),
                                   Text(
                                     "OR CONNECT WITH",
-                                    style: GoogleFonts.lato(
-                                      color: Colors.grey,
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                   Expanded(
                                     child: new Container(
                                       margin: EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(border: Border.all(width: 0.25)),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(width: 0.25)),
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 10.0,),
-                              Column(
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  SignInButton(
-                                    Buttons.Google,
+                                  SignInButton.mini(
+                                    buttonType: ButtonType.google,
                                     elevation: 10,
-                                    onPressed: () {
-                                      _showButtonPressDialog(context, 'Google (mini)');
+                                    onPressed: () async {
+                                      //_showButtonPressDialog(context, 'Google (mini)');
+                                      dynamic result =
+                                          await _authService.signInWithGoogle();
+                                      if (result.user == null) {
+                                        print("==> " + result.error);
+                                        _showMaterialDialog(
+                                            result.error, "Error");
+                                      }
                                     },
                                   ),
-                                  SignInButton(
-                                    Buttons.Facebook,
+                                  SignInButton.mini(
+                                    buttonType: ButtonType.facebook,
                                     elevation: 10,
                                     onPressed: () {
-                                      _showButtonPressDialog(context, 'Facebook (mini)');
+                                      _showButtonPressDialog(
+                                          context, 'Facebook (mini)');
                                     },
                                   ),
                                 ],
@@ -308,18 +290,20 @@ class _SignInNewState extends State<SignInNew> {
                                 children: <Widget>[
                                   Text(
                                     'Don\'t have an account ?',
-                                    style: GoogleFonts.lato(fontSize: 13, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(
                                     width: 1,
                                   ),
-                                  FlatButton(
+                                  TextButton(
                                     child: Text(
-                                        'Register',
-                                        style: GoogleFonts.lato(
-                                            color: Colors.redAccent,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w600)
+                                      'Register',
+                                      style: TextStyle(
+                                          color: Color(0Xff2b6684),
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     onPressed: () {
                                       widget.toggleView();
@@ -327,14 +311,14 @@ class _SignInNewState extends State<SignInNew> {
                                   ),
                                 ],
                               )
-
                             ],
                           ),
-                        )
-                    ),
+                        )),
                   ),
-                ))
-          ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

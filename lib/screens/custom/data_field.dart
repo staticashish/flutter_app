@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/cabinet_model.dart';
 
 class DataField extends StatelessWidget {
-
   final String titleText;
   final String valueText;
 
@@ -11,26 +9,30 @@ class DataField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            this.titleText,
-            style: TextStyle(
-              color: Color(0Xff2b3c63),
-              fontSize: 15,
-            ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            this.valueText,
-            style: TextStyle(
-              color: Color(0Xff2b3c63),
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                this.titleText,
+                style: TextStyle(
+                  color: Color(0Xff374955),
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 2,
+              ),
+              Text(
+                this.valueText,
+                style: TextStyle(
+                  color: Color(0Xff00A09A),
+                  fontSize: 15,
+                ),
+              ),
+            ],
           ),
         ],
       ),

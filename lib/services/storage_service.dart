@@ -10,41 +10,26 @@ class StorageService {
 
   final _storage = FirebaseStorage.instance;
 
-  StorageReference _getRoomStorageReference() {
+  Reference _getRoomStorageReference() {
     return _storage.ref().child(this.uid).child("room");
   }
 
-  StorageReference _getCabinetStorageReference() {
+  Reference _getCabinetStorageReference() {
     return _storage.ref().child(this.uid).child("cabinet");
   }
 
-  Future<String> uploadRoomImage(File file) async {
-    String fileName = basename(file.path);
+  Future<String> uploadImage(File file) async {
+    final String fileName = basename(file.path);
     print("saving file : [ "+fileName+" ]");
-    StorageUploadTask uploadTask = _getRoomStorageReference().child(fileName).putFile(file);
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-    String url = await taskSnapshot.ref.getDownloadURL();
+    final UploadTask uploadTask = _getRoomStorageReference().child(fileName).putFile(file);
+    final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+    final String url = await taskSnapshot.ref.getDownloadURL();
     print("saved file with url : "+ url);
     return url;
   }
 
-  Future<String> uploadCabinetImage(File file) async {
-    String fileName = basename(file.path);
-    print("saving file : [ "+fileName+" ]");
-    StorageUploadTask uploadTask = _getCabinetStorageReference().child(fileName).putFile(file);
-    StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-    String url = await taskSnapshot.ref.getDownloadURL();
-    print("saved file with url : "+ url);
-    return url;
-  }
-
-  Future<void> deleteRoomImage(String roomImageName) async {
-    print("deleting file : [ "+roomImageName+" ]");
-    _getRoomStorageReference().child(roomImageName).delete();
-  }
-
-  Future<void> deleteCabinetImage(String cabinetImageName) async {
-    print("deleting file : [ "+cabinetImageName+" ]");
-    _getCabinetStorageReference().child(cabinetImageName).delete();
+  Future<void> deleteImage(String imageName) async {
+    print("deleting file : [ "+imageName+" ]");
+    _getRoomStorageReference().child(imageName).delete();
   }
 }

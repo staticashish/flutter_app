@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,6 +38,7 @@ class _CabinetState extends State<Cabinet> {
   void _showCabinetAdd(uid) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return StreamProvider<List<RoomModel>>.value(
+          initialData: [],
           child: CabinetForm(onCreate: _onCreate),
           value: DatabaseService(uid: uid).rooms);
     }));
@@ -54,7 +54,7 @@ class _CabinetState extends State<Cabinet> {
       String uid,
       String roomDocId) async {
     String cabinetImageUrl =
-        await StorageService(uid: uid).uploadCabinetImage(File(file.path));
+        await StorageService(uid: uid).uploadImage(File(file.path));
     CabinetModel cabinetModel = new CabinetModel(
         cabinetId,
         cabinetName,
@@ -77,7 +77,7 @@ class _CabinetState extends State<Cabinet> {
   }
 
   _onDelete(String cabinetImageName, String cabinetKey, String uid) async {
-    await StorageService(uid: uid).deleteCabinetImage(cabinetImageName);
+    await StorageService(uid: uid).deleteImage(cabinetImageName);
     await DatabaseService(uid: uid, docId: cabinetKey).deleteCabinetData();
     /* TODO
     Map<String, dynamic> data = Map();
@@ -90,19 +90,24 @@ class _CabinetState extends State<Cabinet> {
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     return Scaffold(
-      body: CabinetList(
-        onDelete: _onDelete,
-      ),
-      drawer: LeftNavigation(),
       appBar: CustomAppBar(
         title: "Cabinet",
       ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            CabinetList(
+              onDelete: _onDelete,
+            ),
+          ],
+        ),
+      ),
+      drawer: LeftNavigation(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _showCabinetAdd(user.uid);
         },
         child: Icon(Icons.add),
-        backgroundColor: Color(0Xff5f72a9),
       ),
     );
   }

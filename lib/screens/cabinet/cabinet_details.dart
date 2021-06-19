@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
-import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_details_data.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
-import 'package:flutter_app/screens/room/room_details_data.dart';
 
 class CabinetDetails extends StatefulWidget {
   final CabinetModel cabinet;

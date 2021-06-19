@@ -37,8 +37,10 @@ class _NavigationState extends State<Navigation> {
     return MultiProvider(
         providers: [
           StreamProvider<List<RoomModel>>.value(
+              initialData: [],
               value: DatabaseService(uid: user.uid).rooms),
           StreamProvider<List<CabinetModel>>.value(
+              initialData: [],
               value: DatabaseService(uid: user.uid).cabinets),
         ],
         child: Scaffold(

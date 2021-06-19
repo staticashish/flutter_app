@@ -8,7 +8,6 @@ import 'package:flutter_app/screens/room/room_details.dart';
 import 'package:provider/provider.dart';
 
 class RoomList extends StatefulWidget {
-
   final Function onDelete;
   RoomList({this.onDelete});
 
@@ -47,7 +46,8 @@ class _RoomListState extends State<RoomList> {
 
             return Dismissible(
               key: Key(currentRoom.roomId),
-              confirmDismiss: (direction) => promptUser(direction, currentRoom, _user),
+              confirmDismiss: (direction) =>
+                  promptUser(direction, currentRoom, _user),
               background: Container(
                 alignment: AlignmentDirectional.centerEnd,
                 color: Color(0Xffba504b),
@@ -77,9 +77,15 @@ class _RoomListState extends State<RoomList> {
                     ),
                   );
                 },
-                child: CustomDataListTile(
-                  tileText: currentRoom.roomName,
-                  imageUrl: currentRoom.roomImageUrl,
+                child: Hero(
+                  tag: currentRoom.roomImageUrl,
+                  child: CustomDataListTile(
+                    nameTitle: "Name",
+                    nameValue: currentRoom.roomName,
+                    noOfChildTitle: "No. of cabinets",
+                    noOfChildvalue: currentRoom.cabinets != null ? currentRoom.cabinets.length.toString(): "0",
+                    imageUrl: currentRoom.roomImageUrl,
+                  ),
                 ),
               ),
             );
@@ -92,7 +98,7 @@ class _RoomListState extends State<RoomList> {
         style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            color: Color(0Xff5f72a9),
+            color: Color(0Xff255771),
             shadows: [
               Shadow(
                 color: Colors.blueGrey,
@@ -104,7 +110,8 @@ class _RoomListState extends State<RoomList> {
     }
   }
 
-  Future<bool> promptUser(DismissDirection direction, RoomModel room, User user) async {
+  Future<bool> promptUser(
+      DismissDirection direction, RoomModel room, User user) async {
     String action;
     if (direction == DismissDirection.startToEnd) {
       action = "archive";

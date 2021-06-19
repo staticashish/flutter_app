@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
@@ -48,22 +48,24 @@ class _RoomState extends State<Room> {
     );
   }
 
-  Future<String> _uploadRoomImage(File file, String uid) async {
-    return await StorageService(uid: uid).uploadRoomImage(file);
-  }
-
-  _onCreate(String roomName, String roomId, String roomSize, String roomDescription,
-      String roomImageName, PickedFile file, String uid) async {
+  _onCreate(
+      String roomName,
+      String roomId,
+      String roomSize,
+      String roomDescription,
+      String roomImageName,
+      PickedFile file,
+      String uid) async {
     String roomImageUrl =
-        await StorageService(uid: uid).uploadRoomImage(File(file.path));
-    RoomModel roomModel =
-        new RoomModel(roomId, roomName, roomSize, roomDescription, roomImageUrl, roomImageName);
+        await StorageService(uid: uid).uploadImage(File(file.path));
+    RoomModel roomModel = new RoomModel(roomId, roomName, roomSize,
+        roomDescription, roomImageUrl, roomImageName);
     await DatabaseService(uid: uid).addRoomData(roomModel);
     _showToast("Room Added");
   }
 
   _onDelete(String roomImageName, String roomDocId, String uid) async {
-    await StorageService(uid: uid).deleteRoomImage(roomImageName);
+    await StorageService(uid: uid).deleteImage(roomImageName);
     await DatabaseService(uid: uid, docId: roomDocId).deleteRoomData();
     _showToast("Room Deleted");
   }
@@ -76,19 +78,23 @@ class _RoomState extends State<Room> {
       appBar: CustomAppBar(
         title: "Room",
       ),
-      body: isLoading
-          ? Container(child: Center(child: CircularProgressIndicator()))
-          : Container(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Container(
               child: RoomList(
                 onDelete: _onDelete,
               ),
             ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _showRoomAdd();
         },
         child: Icon(Icons.add),
-        backgroundColor: Color(0Xff5f72a9),
+        //backgroundColor: Color(0Xff00A09A),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

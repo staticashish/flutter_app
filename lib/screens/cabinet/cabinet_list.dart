@@ -73,7 +73,10 @@ class _CabinetListState extends State<CabinetList> {
                   );
                 },
                 child: CustomDataListTile(
-                  tileText: currentCabinet.cabinetName,
+                  nameTitle: "Name",
+                  nameValue: currentCabinet.cabinetName,
+                  noOfChildTitle: "",
+                  noOfChildvalue: "",
                   imageUrl: currentCabinet.cabinetImageUrl,
                 ),
               ),
@@ -87,7 +90,7 @@ class _CabinetListState extends State<CabinetList> {
         style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            color: Color(0Xff5f72a9),
+            color: Color(0Xff255771),
             shadows: [
               Shadow(
                 color: Colors.blueGrey,

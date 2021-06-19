@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/cabinet_model.dart';
-import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/wrapper.dart';
-import 'package:flutter_app/services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -24,10 +21,7 @@ class Welcome extends StatelessWidget {
           gradientBackground: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [
-                Color(0Xffdfe1ee),
-                Color(0Xffffffff)
-              ]),
+              colors: [Color(0Xffdfe1ee), Color(0Xffffffff)]),
         ),
       ),
     );

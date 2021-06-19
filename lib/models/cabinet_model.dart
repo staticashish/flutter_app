@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class CabinetModel {
   String key;
@@ -11,8 +10,14 @@ class CabinetModel {
   String cabinetDescription;
   String roomDocId;
 
-  CabinetModel(this.cabinetId, this.cabinetName, this.cabinetSize, this.cabinetDescription,
-      this.cabinetImageUrl, this.cabinetImageName, this.roomDocId);
+  CabinetModel(
+      this.cabinetId,
+      this.cabinetName,
+      this.cabinetSize,
+      this.cabinetDescription,
+      this.cabinetImageUrl,
+      this.cabinetImageName,
+      this.roomDocId);
 
   CabinetModel.fromSnapshot(QueryDocumentSnapshot snapshot)
       : key = snapshot.id,
@@ -29,10 +34,10 @@ class CabinetModel {
       "cabinetId": cabinetId,
       "cabinetName": cabinetName,
       "cabinetSize": cabinetSize,
-      "cabinetDescription" : cabinetDescription,
-      "cabinetImageUrl" : cabinetImageUrl,
-      "cabinetImageName" : cabinetImageName,
-      roomDocId : true
+      "cabinetDescription": cabinetDescription,
+      "cabinetImageUrl": cabinetImageUrl,
+      "cabinetImageName": cabinetImageName,
+      roomDocId: true
     };
   }
 }

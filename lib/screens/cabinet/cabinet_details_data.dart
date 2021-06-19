@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
-import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_name_with_image.dart';
 import 'package:flutter_app/screens/custom/data_field.dart';
-import 'package:flutter_app/screens/room/room_name_with_image.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CabinetDetailsData extends StatelessWidget {
   final CabinetModel cabinet;

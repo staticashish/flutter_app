@@ -20,9 +20,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
    return BottomNavigationBar(
         currentIndex: widget.index,
         elevation: 10,
-        selectedItemColor: Color(0Xff5f72a9),
-        onTap: widget.onTapFunction,
+        selectedItemColor: Color(0Xff48C392),
+       selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+       onTap: widget.onTapFunction,
         type: BottomNavigationBarType.fixed,
+        iconSize: 30,
+
         items: <BottomNavigationBarItem>[
           buildBottomNavigationBarItem(Icons.home, "Home"),
           buildBottomNavigationBarItem(AppIcons.living_room,"Room"),
@@ -36,14 +39,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   BottomNavigationBarItem buildBottomNavigationBarItem(IconData iconData, String text) {
     return BottomNavigationBarItem(
               icon: Icon(iconData),
-              title: Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 4.0, 0.0, 0.0),
-                child: Text(text, style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                ),
-                ),
-              )
-          );
+              label: text,
+    );
   }
 }

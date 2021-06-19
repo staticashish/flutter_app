@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
-import 'package:flutter_app/services/storage_service.dart';
 
 class DatabaseService {
-
   final String docId;
   final String uid;
+
   DatabaseService({this.docId, this.uid});
 
   final _db = FirebaseFirestore.instance;
@@ -43,15 +41,17 @@ class DatabaseService {
   }
 
   Future<String> addCabinetData(CabinetModel cabinetModel) async {
-    return _getCabinetCollectionReference().add(cabinetModel.toJson()).then((value) {
-       return value.id;
-     });
+    return _getCabinetCollectionReference()
+        .add(cabinetModel.toJson())
+        .then((value) {
+      return value.id;
+    });
   }
 
   Future updateUserData(String displayName, String email) async {
     _getUserCollectionReference().doc(this.uid).set({
-      'displayName' : displayName,
-      'email' : email,
+      'displayName': displayName,
+      'email': email,
     });
   }
 
@@ -68,9 +68,7 @@ class DatabaseService {
   }
 
   Stream<List<RoomModel>> get rooms {
-    return _getRoomCollectionReference()
-        .snapshots()
-        .map(_roomListFromSnapshot);
+    return _getRoomCollectionReference().snapshots().map(_roomListFromSnapshot);
   }
 
   Stream<List<CabinetModel>> get cabinets {

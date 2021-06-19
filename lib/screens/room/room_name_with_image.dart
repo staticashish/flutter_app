@@ -3,16 +3,29 @@ import 'package:flutter_app/models/room_model.dart';
 
 class RoomNameWithImage extends StatelessWidget {
   final RoomModel room;
-
   RoomNameWithImage({this.room});
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
-      width: double.infinity,
-      height: 280,
+      width: size.width,
+      height: size.width / 1.5,
       decoration: BoxDecoration(
-        image: DecorationImage(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(0.0, 2.0),
+            blurRadius: 6.0,
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30.0),
+          bottomRight: Radius.circular(30.0),
+        ),
+        child: Image(
           image: this.room.roomImageUrl != null
               ? NetworkImage(
                   this.room.roomImageUrl.toString(),
@@ -20,7 +33,7 @@ class RoomNameWithImage extends StatelessWidget {
               : Image.asset(
                   "assets/images/img_no-image_default.png",
                 ),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
       ),
     );

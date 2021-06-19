@@ -13,6 +13,5 @@ class Wrapper extends StatelessWidget {
     } else {
       return Navigation();
     }
-
   }
 }

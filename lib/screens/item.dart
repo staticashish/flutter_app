@@ -94,7 +94,7 @@ class _ItemState extends State<Item> {
       final name = DateTime.now();
       final path = "${p.path}/$name.png";
 
-      await cameraController.takePicture(path).then((value) {
+      await cameraController.takePicture().then((value) {
         print('here');
         print(path);
         /*Navigator.push(
@@ -121,7 +121,7 @@ class _ItemState extends State<Item> {
     return Expanded(
       child: Align(
         alignment: Alignment.centerLeft,
-        child: FlatButton.icon(
+        child: TextButton.icon(
             onPressed: () {
               onSwitchCamera();
             },
