@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/room_model.dart';
@@ -12,7 +11,6 @@ import 'package:flutter_app/services/database_service.dart';
 import 'package:flutter_app/services/storage_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 class Room extends StatefulWidget {
   final ValueChanged<int> onTabSelected;
@@ -24,15 +22,13 @@ class Room extends StatefulWidget {
 }
 
 class _RoomState extends State<Room> {
-  bool isLoading = false;
-
   void _showToast(String messageText) {
     Fluttertoast.showToast(
         msg: messageText,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: Color(0Xff586181),
+        backgroundColor: Color(0Xff00B8A2),
         textColor: Colors.white,
         fontSize: 15.0);
   }
@@ -72,7 +68,6 @@ class _RoomState extends State<Room> {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
     return Scaffold(
       drawer: LeftNavigation(),
       appBar: CustomAppBar(
@@ -93,10 +88,8 @@ class _RoomState extends State<Room> {
         onPressed: () {
           _showRoomAdd();
         },
-        child: Icon(Icons.add),
-        //backgroundColor: Color(0Xff00A09A),
+        child: Icon(Icons.add_box_rounded),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

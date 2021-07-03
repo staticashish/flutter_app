@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/room_model.dart';
+import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/custom/image_selector.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -10,24 +10,25 @@ import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-class CabinetForm extends StatefulWidget {
-  final Function onCreate;
+class CabinetDrawerForm extends StatefulWidget {
 
-  CabinetForm({this.onCreate});
+  final Function onCreate;
+  const CabinetDrawerForm({Key key, this.onCreate}) : super(key: key);
 
   @override
-  _CabinetFormState createState() => _CabinetFormState();
+  _CabinetDrawerFormState createState() => _CabinetDrawerFormState();
 }
 
-class _CabinetFormState extends State<CabinetForm> {
+class _CabinetDrawerFormState extends State<CabinetDrawerForm> {
+
   final _formKey = GlobalKey<FormState>();
   final uuid = Uuid();
-  String cabinetName;
-  String cabinetId;
-  String cabinetSize;
-  String cabinetDescription;
+  String drawerName;
+  String drawerId;
+  String drawerSize;
+  String drawerDescription;
   String roomName;
-  RoomModel selectedRoom;
+  CabinetModel selectedCabinet;
   PickedFile _image;
 
   _onImageSelect(PickedFile file) {
@@ -36,12 +37,14 @@ class _CabinetFormState extends State<CabinetForm> {
 
   @override
   Widget build(BuildContext context) {
-    final _rooms = Provider.of<List<RoomModel>>(context);
+
+
+    final _cabinets = Provider.of<List<CabinetModel>>(context);
     final _user = Provider.of<User>(context);
-    if (_rooms != null && _rooms.length > 0) {
+    if (_cabinets != null && _cabinets.length > 0) {
       return Scaffold(
         appBar: CustomAppBar(
-          title: 'Add Cabinet',
+          title: 'Add Drawer',
         ),
         body: ProgressHUD(
           indicatorWidget: Container(
@@ -63,10 +66,7 @@ class _CabinetFormState extends State<CabinetForm> {
                               onImageSelect: _onImageSelect,
                             )),
                         const Divider(
-                          height: 20.0,
-                          indent: 20.0,
-                          endIndent: 20.0,
-                          thickness: 2.0,
+                          height: 50.0,
                         ),
                         TextFormField(
                           validator: (val) {
@@ -78,9 +78,9 @@ class _CabinetFormState extends State<CabinetForm> {
                           obscureText: false,
                           textAlign: TextAlign.left,
                           decoration: InputDecoration(
-                            hintText: 'Kitchen Cabinet',
+                            hintText: 'drawer',
                             hintStyle: TextStyle(color: Colors.grey[500]),
-                            labelText: "Enter Cabinet Name",
+                            labelText: "Enter drawer Name",
                             labelStyle: TextStyle(
                               color: Color(0Xff9cacbf),
                             ),
@@ -88,7 +88,7 @@ class _CabinetFormState extends State<CabinetForm> {
                           ),
                           onChanged: (val) {
                             setState(() {
-                              cabinetName = val;
+                              drawerName = val;
                             });
                           },
                         ),
@@ -96,7 +96,7 @@ class _CabinetFormState extends State<CabinetForm> {
                         TextFormField(
                           validator: (val) {
                             if (val.isEmpty) {
-                              return "Please enter an cabinet size";
+                              return "Please enter an drawer size";
                             }
                             return null;
                           },
@@ -105,7 +105,7 @@ class _CabinetFormState extends State<CabinetForm> {
                           decoration: InputDecoration(
                             hintText: '100X200',
                             hintStyle: TextStyle(color: Colors.grey[500]),
-                            labelText: "Enter Cabinet Size",
+                            labelText: "Enter drawer Size",
                             fillColor: Colors.white,
                             labelStyle: TextStyle(
                               color: Color(0Xff9cacbf),
@@ -113,7 +113,7 @@ class _CabinetFormState extends State<CabinetForm> {
                           ),
                           onChanged: (val) {
                             setState(() {
-                              cabinetSize = val;
+                              drawerSize = val;
                             });
                           },
                         ),
@@ -121,7 +121,7 @@ class _CabinetFormState extends State<CabinetForm> {
                         TextFormField(
                           validator: (val) {
                             if (val.isEmpty) {
-                              return "Please enter an cabinet description";
+                              return "Please enter an drawer description";
                             }
                             return null;
                           },
@@ -130,9 +130,9 @@ class _CabinetFormState extends State<CabinetForm> {
                           maxLength: 200,
                           textAlign: TextAlign.left,
                           decoration: InputDecoration(
-                            hintText: 'cabinet description',
+                            hintText: 'drawer description',
                             hintStyle: TextStyle(color: Colors.grey[500]),
-                            labelText: "Enter Cabinet Description",
+                            labelText: "Enter Drawer Description",
                             fillColor: Colors.white,
                             labelStyle: TextStyle(
                               color: Color(0Xff9cacbf),
@@ -140,31 +140,31 @@ class _CabinetFormState extends State<CabinetForm> {
                           ),
                           onChanged: (val) {
                             setState(() {
-                              cabinetDescription = val;
+                              drawerDescription = val;
                             });
                           },
                         ),
                         SizedBox(height: 20.0),
                         DropdownButtonFormField(
-                          value: selectedRoom != null ? selectedRoom : null,
+                          value: selectedCabinet != null ? selectedCabinet : null,
                           decoration: InputDecoration(
                             hintText: 'Please Select',
                             hintStyle: TextStyle(color: Colors.grey[500]),
-                            labelText: "Select Room",
+                            labelText: "Select Cabinet",
                             fillColor: Colors.white,
                             labelStyle: TextStyle(
                               color: Color(0Xff9cacbf),
                             ),
                           ),
-                          items: _rooms.map((room) {
+                          items: _cabinets.map((cabinet) {
                             return DropdownMenuItem(
-                              value: room,
-                              key: Key(room.key),
-                              child: Text(room.roomName),
+                              value: cabinet,
+                              key: Key(cabinet.key),
+                              child: Text(cabinet.cabinetName),
                             );
                           }).toList(),
                           onChanged: (val) => setState(
-                            () => selectedRoom = val,
+                                () => selectedCabinet = val,
                           ),
                         ),
                         SizedBox(height: 10.0),
@@ -181,19 +181,19 @@ class _CabinetFormState extends State<CabinetForm> {
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
                               final progress = ProgressHUD.of(context);
-                              progress.showWithText("Adding cabinet ..");
-                              cabinetId = uuid.v1();
+                              progress.showWithText("Adding drawer ..");
+                              drawerId = uuid.v1();
                               String cabinetImageName = basename(_image.path);
                               await widget.onCreate(
-                                  cabinetName,
-                                  cabinetId,
-                                  cabinetSize,
-                                  cabinetDescription,
+                                  drawerName,
+                                  drawerId,
+                                  drawerSize,
+                                  drawerDescription,
                                   cabinetImageName,
                                   _image,
                                   _user.uid,
-                                  selectedRoom.key);
-                              selectedRoom = null;
+                                  selectedCabinet.key);
+                              selectedCabinet = null;
                               progress.dismiss();
                               Navigator.pop(context);
                             }
@@ -208,7 +208,7 @@ class _CabinetFormState extends State<CabinetForm> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    "Add Cabinet",
+                                    "Add Drawer",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -230,5 +230,6 @@ class _CabinetFormState extends State<CabinetForm> {
     } else {
       return Center(child: CircularProgressIndicator());
     }
+
   }
 }

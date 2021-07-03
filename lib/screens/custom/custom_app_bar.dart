@@ -25,7 +25,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       bottom: PreferredSize(
         child: Container(
           color: Colors.black26,
-          height: 2.0,
+          height: 0.0,
         ),
         preferredSize: Size.fromHeight(4.0),
       ),

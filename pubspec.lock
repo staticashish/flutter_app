@@ -258,6 +258,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.11"
+  flutter_progress_hud:
+    dependency: "direct main"
+    description:
+      name: flutter_progress_hud
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  flutter_speed_dial:
+    dependency: "direct main"
+    description:
+      name: flutter_speed_dial
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.5"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -366,13 +380,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
-  loading_overlay:
-    dependency: "direct main"
-    description:
-      name: loading_overlay
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0"
   matcher:
     dependency: transitive
     description:

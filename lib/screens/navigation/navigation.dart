@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/cabinet_drawer_model.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/room_model.dart';
 import 'package:flutter_app/screens/cabinet/cabinet.dart';
-import 'package:flutter_app/screens/cabinet_drawer.dart';
+import '../drawer/cabinet_drawer.dart';
 import 'package:flutter_app/screens/navigation/bottom_navigation.dart';
 import 'package:flutter_app/screens/room/room.dart';
-import 'package:flutter_app/screens/home.dart';
+import 'package:flutter_app/screens/start.dart';
 import 'package:flutter_app/screens/item.dart';
 import 'package:flutter_app/services/auth_service.dart';
 import 'package:flutter_app/services/database_service.dart';
@@ -29,7 +30,7 @@ class _NavigationState extends State<Navigation> {
   }
 
   TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  List<Widget> widgetOptions = <Widget>[Home(), Room(), Cabinet(), CabinetDrawer(), Item()];
+  List<Widget> widgetOptions = <Widget>[Start(), Room(), Cabinet(), CabinetDrawer(), Item()];
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,9 @@ class _NavigationState extends State<Navigation> {
           StreamProvider<List<CabinetModel>>.value(
               initialData: [],
               value: DatabaseService(uid: user.uid).cabinets),
+          StreamProvider<List<CabinetDrawerModel>>.value(
+              initialData: [],
+              value: DatabaseService(uid: user.uid).drawers),
         ],
         child: Scaffold(
           backgroundColor: Colors.white,

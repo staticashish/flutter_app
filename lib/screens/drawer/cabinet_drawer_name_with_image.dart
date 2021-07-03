@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/room_model.dart';
+import 'package:flutter_app/models/cabinet_drawer_model.dart';
 
-class RoomNameWithImage extends StatelessWidget {
-  final RoomModel room;
-  RoomNameWithImage({this.room});
+class CabinetDrawerNameWithImage extends StatelessWidget {
+
+  final CabinetDrawerModel drawer;
+
+  const CabinetDrawerNameWithImage({Key key, this.drawer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class RoomNameWithImage extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(30.0),),
           child: CachedNetworkImage(
-            imageUrl: this.room.roomImageUrl.toString(),
+            imageUrl: this.drawer.drawerImageUrl.toString(),
             fit: BoxFit.cover,
             width: 100,
             placeholder: (context, url) => LinearProgressIndicator(),

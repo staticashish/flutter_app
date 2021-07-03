@@ -28,4 +28,5 @@ class AppIcons {
   static const IconData cabinet = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData living_room = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData room_door = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData dashboard = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

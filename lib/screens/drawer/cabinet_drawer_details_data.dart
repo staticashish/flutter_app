@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/cabinet_model.dart';
-import 'package:flutter_app/screens/cabinet/cabinet_name_with_image.dart';
+import 'package:flutter_app/models/cabinet_drawer_model.dart';
 import 'package:flutter_app/screens/custom/data_field.dart';
+import 'package:flutter_app/screens/drawer/cabinet_drawer_name_with_image.dart';
 
-class CabinetDetailsData extends StatelessWidget {
-  final CabinetModel cabinet;
+class CabinetDrawerDetailsData extends StatelessWidget {
+  final CabinetDrawerModel drawer;
 
-  CabinetDetailsData({this.cabinet});
+  const CabinetDrawerDetailsData({Key key, this.drawer}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Stack(
             children: <Widget>[
-              CabinetNameWithImage(
-                cabinet: this.cabinet,
+              CabinetDrawerNameWithImage(
+                drawer: this.drawer,
               ),
             ],
           ),
@@ -30,15 +31,15 @@ class CabinetDetailsData extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       DataField(
-                        titleText: "Cabinet Name",
-                        valueText: this.cabinet.cabinetName,
+                        titleText: "Drawer Name",
+                        valueText: this.drawer.drawerName,
                       ),
                       SizedBox(
                         width: 15,
                       ),
                       DataField(
-                        titleText: "Cabinet Size",
-                        valueText: this.cabinet.cabinetSize,
+                        titleText: "Drawer Size",
+                        valueText: this.drawer.drawerSize,
                       ),
                     ],
                   ),
@@ -50,23 +51,14 @@ class CabinetDetailsData extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       DataField(
-                        titleText: "Cabinet Description",
-                        valueText: this.cabinet.cabinetDescription,
+                        titleText: "Drawer Description",
+                        valueText: this.drawer.drawerDescription,
                       ),
                     ],
                   ),
                   Divider(
                     thickness: 2,
                     height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      DataField(
-                        titleText: "No. of Drawers",
-                        valueText: this.cabinet.drawers != null ? this.cabinet.drawers.length.toString(): "0",
-                      ),
-                    ],
                   ),
                 ],
               ),

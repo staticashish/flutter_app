@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/custom/data_field.dart';
 
@@ -8,7 +9,12 @@ class CustomDataListTile extends StatefulWidget {
   final String noOfChildTitle;
   final String noOfChildvalue;
 
-  CustomDataListTile({this.imageUrl, this.nameTitle, this.nameValue, this.noOfChildTitle, this.noOfChildvalue});
+  CustomDataListTile(
+      {this.imageUrl,
+      this.nameTitle,
+      this.nameValue,
+      this.noOfChildTitle,
+      this.noOfChildvalue});
 
   @override
   _CustomDataListTileState createState() => _CustomDataListTileState();
@@ -74,19 +80,15 @@ class _CustomDataListTileState extends State<CustomDataListTile> {
           bottom: 15.0,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
-            child: widget.imageUrl != null
-                ? Image.network(
-              widget.imageUrl.toString(),
+            child: CachedNetworkImage(
+              imageUrl: widget.imageUrl.toString(),
               fit: BoxFit.cover,
-              loadingBuilder: (context, child, progress) =>
-              progress == null
-                  ? child
-                  : LinearProgressIndicator(),
-              width: 110,
-            )
-                : Image.asset(
-              "assets/images/img_no-image_default.png",
-              fit: BoxFit.fill,
+              width: 100,
+              placeholder: (context, url) => LinearProgressIndicator(),
+              errorWidget: (context, url, error) => Image.asset(
+                "assets/images/img_no-image_default.png",
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),

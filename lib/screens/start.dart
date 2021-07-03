@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/navigation/left_navigation.dart';
 
-class Home extends StatefulWidget {
+class Start extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _StartState createState() => _StartState();
 }
 
-class _HomeState extends State<Home> {
+class _StartState extends State<Start> {
 
   @override
   Widget build(BuildContext context) {

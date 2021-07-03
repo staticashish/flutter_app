@@ -1,53 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/room_model.dart';
-import 'package:flutter_app/screens/cabinet/cabinet.dart';
+import 'package:flutter_app/models/cabinet_drawer_model.dart';
 import 'package:flutter_app/screens/custom/custom_data_list_tile.dart';
-import 'package:flutter_app/screens/room/room_details.dart';
+import 'package:flutter_app/screens/drawer/cabinet_drawer_details.dart';
 import 'package:provider/provider.dart';
 
-class RoomList extends StatefulWidget {
+class CabinetDrawerList extends StatefulWidget {
   final Function onDelete;
-  RoomList({this.onDelete});
+
+  const CabinetDrawerList({Key key, this.onDelete}) : super(key: key);
 
   @override
-  _RoomListState createState() => _RoomListState();
+  _CabinetDrawerListState createState() => _CabinetDrawerListState();
 }
 
-class _RoomListState extends State<RoomList> {
-  _showMenuButton() {
-    return PopupMenuButton(
-        itemBuilder: (_) => <PopupMenuItem<String>>[
-              new PopupMenuItem<String>(
-                  child: const Text('Cabinet'), value: 'cabinet'),
-              new PopupMenuItem<String>(
-                  child: const Text('Thing'), value: 'thing'),
-            ],
-        onSelected: (value) {
-          print(value.toString());
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => Cabinet()),
-          );
-        });
-  }
-
+class _CabinetDrawerListState extends State<CabinetDrawerList> {
   @override
   Widget build(BuildContext context) {
-    final _rooms = Provider.of<List<RoomModel>>(context);
+    final _drawers = Provider.of<List<CabinetDrawerModel>>(context);
     final _user = Provider.of<User>(context);
-    if (_rooms != null && _rooms.length > 0) {
+    if (_drawers != null && _drawers.length > 0) {
       return ListView.builder(
           shrinkWrap: true,
-          itemCount: _rooms.length,
+          itemCount: _drawers.length,
           itemBuilder: (BuildContext context, int index) {
-            RoomModel currentRoom = _rooms[index];
+            CabinetDrawerModel currentDrawer = _drawers[index];
 
             return Dismissible(
-              key: Key(currentRoom.roomId),
+              key: Key(currentDrawer.drawerId),
               confirmDismiss: (direction) =>
-                  promptUser(direction, currentRoom, _user),
+                  promptUser(direction, currentDrawer, _user),
               background: Container(
                 alignment: AlignmentDirectional.centerEnd,
                 color: Color(0Xffba504b),
@@ -62,7 +45,7 @@ class _RoomListState extends State<RoomList> {
               ),
               onDismissed: (direction) {
                 setState(() {
-                  _rooms.removeAt(index);
+                  _drawers.removeAt(index);
                 });
               },
               child: InkWell(
@@ -71,47 +54,45 @@ class _RoomListState extends State<RoomList> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => RoomDetails(
-                        room: currentRoom,
+                      builder: (context) => CabinetDrawerDetails(
+                        drawer: currentDrawer,
                       ),
                     ),
                   );
                 },
-                child: Hero(
-                  tag: currentRoom.roomImageUrl,
-                  child: CustomDataListTile(
-                    nameTitle: "Name",
-                    nameValue: currentRoom.roomName,
-                    noOfChildTitle: "No. of cabinets",
-                    noOfChildvalue: currentRoom.cabinets != null ? currentRoom.cabinets.length.toString(): "0",
-                    imageUrl: currentRoom.roomImageUrl,
-                  ),
+                child: CustomDataListTile(
+                  nameTitle: "Name",
+                  nameValue: currentDrawer.drawerName,
+                  noOfChildTitle: "",
+                  noOfChildvalue: "",
+                  imageUrl: currentDrawer.drawerImageUrl,
                 ),
               ),
             );
           });
     } else {
       return Center(
-          child: Text(
-        "Add your first room.",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: Color(0Xff48C392),
-            shadows: [
-              Shadow(
-                color: Colors.blueGrey,
-                blurRadius: 20.0,
-                offset: Offset(5.0, 5.0),
-              )
-            ]),
-      ));
+        child: Text(
+          "Add your first drawer.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0Xff48C392),
+              shadows: [
+                Shadow(
+                  color: Colors.blueGrey,
+                  blurRadius: 20.0,
+                  offset: Offset(5.0, 5.0),
+                )
+              ]),
+        ),
+      );
     }
   }
 
   Future<bool> promptUser(
-      DismissDirection direction, RoomModel room, User user) async {
+      DismissDirection direction, CabinetDrawerModel drawer, User user) async {
     String action;
     if (direction == DismissDirection.startToEnd) {
       action = "archive";
@@ -127,7 +108,8 @@ class _RoomListState extends State<RoomList> {
               CupertinoDialogAction(
                 child: Text("Ok"),
                 onPressed: () async {
-                  await widget.onDelete(room.roomImageName, room.key, user.uid);
+                  await widget.onDelete(
+                      drawer.drawerImageName, drawer.key, user.uid);
                   Navigator.of(context).pop(true);
                 },
               ),

@@ -75,8 +75,8 @@ class _CabinetListState extends State<CabinetList> {
                 child: CustomDataListTile(
                   nameTitle: "Name",
                   nameValue: currentCabinet.cabinetName,
-                  noOfChildTitle: "",
-                  noOfChildvalue: "",
+                  noOfChildTitle: "No. of Drawers",
+                  noOfChildvalue: currentCabinet.drawers != null ? currentCabinet.drawers.length.toString(): "0",
                   imageUrl: currentCabinet.cabinetImageUrl,
                 ),
               ),
@@ -90,7 +90,7 @@ class _CabinetListState extends State<CabinetList> {
         style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            color: Color(0Xff255771),
+            color: Color(0Xff48C392),
             shadows: [
               Shadow(
                 color: Colors.blueGrey,

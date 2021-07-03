@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/cabinet_drawer_model.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
-import 'package:flutter_app/models/room_model.dart';
-import 'package:flutter_app/screens/cabinet/cabinet_form.dart';
-import 'package:flutter_app/screens/cabinet/cabinet_list.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
+import 'package:flutter_app/screens/drawer/cabinet_drawer_form.dart';
+import 'package:flutter_app/screens/drawer/cabinet_drawer_list.dart';
 import 'package:flutter_app/screens/navigation/left_navigation.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:flutter_app/services/storage_service.dart';
@@ -15,14 +15,25 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class Cabinet extends StatefulWidget {
+class CabinetDrawer extends StatefulWidget {
   @override
-  _CabinetState createState() => _CabinetState();
+  _CabinetDrawerState createState() => _CabinetDrawerState();
 }
 
-class _CabinetState extends State<Cabinet> {
-  bool isLoading = false;
-  String cabinetKey;
+class _CabinetDrawerState extends State<CabinetDrawer> {
+
+  String drawerKey;
+
+  void _showDrawerAdd(uid) {
+    print("context 1: " + context.toString());
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      print("context 2: " + context.toString());
+      return StreamProvider<List<CabinetModel>>.value(
+          initialData: [],
+          child: CabinetDrawerForm(onCreate: _onCreate),
+          value: DatabaseService(uid: uid).cabinets);
+    }));
+  }
 
   void _showToast(String messageText) {
     Fluttertoast.showToast(
@@ -35,50 +46,42 @@ class _CabinetState extends State<Cabinet> {
         fontSize: 15.0);
   }
 
-  void _showCabinetAdd(uid) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return StreamProvider<List<RoomModel>>.value(
-          initialData: [],
-          child: CabinetForm(onCreate: _onCreate),
-          value: DatabaseService(uid: uid).rooms);
-    }));
-  }
-
   _onCreate(
-      String cabinetName,
-      String cabinetId,
-      String cabinetSize,
-      String cabinetDescription,
-      String cabinetImageName,
+      String drawerName,
+      String drawerId,
+      String drawerSize,
+      String drawerDescription,
+      String drawerImageName,
       PickedFile file,
       String uid,
-      String roomDocId) async {
-    String cabinetImageUrl =
+      String cabinetDocId) async {
+    String drawerImageUrl =
         await StorageService(uid: uid).uploadImage(File(file.path));
-    CabinetModel cabinetModel = new CabinetModel(
-        cabinetId,
-        cabinetName,
-        cabinetSize,
-        cabinetDescription,
-        cabinetImageUrl,
-        cabinetImageName,
-        roomDocId);
-    await DatabaseService(docId: roomDocId, uid: uid)
-        .addCabinetData(cabinetModel)
+    CabinetDrawerModel drawerModel = new CabinetDrawerModel(
+        drawerId,
+        drawerName,
+        drawerSize,
+        drawerDescription,
+        drawerImageUrl,
+        drawerImageName,
+        cabinetDocId);
+
+    await DatabaseService(docId: cabinetDocId, uid: uid)
+        .addDrawerData(drawerModel)
         .then((value) {
       setState(() {
-        this.cabinetKey = value;
+        this.drawerKey = value;
       });
     });
     Map<String, dynamic> data = Map();
-    data.putIfAbsent("cabinets", () => FieldValue.arrayUnion([cabinetKey]));
-    await DatabaseService(docId: roomDocId, uid: uid).updateRoomData(data);
-    _showToast("Cabinet Added");
+    data.putIfAbsent("drawers", () => FieldValue.arrayUnion([drawerKey]));
+    await DatabaseService(docId: cabinetDocId, uid: uid).updateCabinetData(data);
+    _showToast("Drawer Added");
   }
 
-  _onDelete(String cabinetImageName, String cabinetKey, String uid) async {
+  _onDelete(String cabinetImageName, String drawerKey, String uid) async {
     await StorageService(uid: uid).deleteImage(cabinetImageName);
-    await DatabaseService(uid: uid, docId: cabinetKey).deleteCabinetData();
+    await DatabaseService(uid: uid, docId: drawerKey).deleteCabinetData();
     /* TODO
     Map<String, dynamic> data = Map();
     data.putIfAbsent("cabinets", () => FieldValue.arrayRemove([cabinetKey]));
@@ -91,12 +94,12 @@ class _CabinetState extends State<Cabinet> {
     User user = Provider.of<User>(context);
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Cabinet",
+        title: "Drawer",
       ),
       body: SafeArea(
         child: Stack(
           children: [
-            CabinetList(
+            CabinetDrawerList(
               onDelete: _onDelete,
             ),
           ],
@@ -105,7 +108,7 @@ class _CabinetState extends State<Cabinet> {
       drawer: LeftNavigation(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showCabinetAdd(user.uid);
+          _showDrawerAdd(user.uid);
         },
         child: Icon(Icons.add_box),
       ),

@@ -27,7 +27,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         iconSize: 30,
 
         items: <BottomNavigationBarItem>[
-          buildBottomNavigationBarItem(Icons.home, "Home"),
+          buildBottomNavigationBarItem(AppIcons.dashboard, "Start"),
           buildBottomNavigationBarItem(AppIcons.living_room,"Room"),
           buildBottomNavigationBarItem(AppIcons.cabinet,"Cabinet"),
           buildBottomNavigationBarItem(AppIcons.cabinet_drawer,"Drawer"),

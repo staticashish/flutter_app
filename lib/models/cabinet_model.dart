@@ -9,6 +9,7 @@ class CabinetModel {
   String cabinetImageName;
   String cabinetDescription;
   String roomDocId;
+  List drawers;
 
   CabinetModel(
       this.cabinetId,
@@ -27,7 +28,8 @@ class CabinetModel {
         cabinetDescription = snapshot.data()['cabinetDescription'],
         cabinetImageUrl = snapshot.data()['cabinetImageUrl'],
         cabinetImageName = snapshot.data()['cabinetImageName'],
-        roomDocId = snapshot.data()['roomDocId'];
+        roomDocId = snapshot.data()['roomDocId'],
+        drawers = snapshot.data()['drawers'];
 
   toJson() {
     return {
