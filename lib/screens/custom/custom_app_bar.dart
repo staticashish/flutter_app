@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -20,19 +21,20 @@ class _CustomAppBarState extends State<CustomAppBar> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       iconTheme: IconThemeData(
-        color: Color(0Xff48C392),
+        color: Color(0Xff8685EF),
       ),
       bottom: PreferredSize(
         child: Container(
-          color: Colors.black26,
-          height: 0.0,
+          color: Colors.black12,
+          height: 0.5,
         ),
         preferredSize: Size.fromHeight(4.0),
       ),
       title: Text(
         widget.title,
-        style: TextStyle(
-          color: Color(0Xff48C392),
+        style: GoogleFonts.montserrat(
+          color: Color(0Xff8685EF),
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

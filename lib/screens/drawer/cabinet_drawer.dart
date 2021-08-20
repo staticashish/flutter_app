@@ -79,13 +79,12 @@ class _CabinetDrawerState extends State<CabinetDrawer> {
     _showToast("Drawer Added");
   }
 
-  _onDelete(String cabinetImageName, String drawerKey, String uid) async {
-    await StorageService(uid: uid).deleteImage(cabinetImageName);
-    await DatabaseService(uid: uid, docId: drawerKey).deleteCabinetData();
-    /* TODO
+  _onDelete(String drawerImageName, String drawerKey, String uid, String cabinetDocId) async {
+    await StorageService(uid: uid).deleteImage(drawerImageName);
+    await DatabaseService(uid: uid, docId: drawerKey).deleteDrawerData();
     Map<String, dynamic> data = Map();
-    data.putIfAbsent("cabinets", () => FieldValue.arrayRemove([cabinetKey]));
-    await DatabaseService(docId: cabinetKey, uid: uid).updateRoomData(data);*/
+    data.putIfAbsent("drawers", () => FieldValue.arrayRemove([drawerKey]));
+    await DatabaseService(docId: cabinetDocId, uid: uid).updateCabinetData(data);
     _showToast("Cabinet Removed");
   }
 
@@ -111,6 +110,7 @@ class _CabinetDrawerState extends State<CabinetDrawer> {
           _showDrawerAdd(user.uid);
         },
         child: Icon(Icons.add_box),
+        backgroundColor: Color(0XffAEEF85),
       ),
     );
   }

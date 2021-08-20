@@ -1,21 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/cabinet_model.dart';
-import 'package:flutter_app/screens/cabinet/cabinet_details.dart';
+import 'package:flutter_app/models/item_model.dart';
 import 'package:flutter_app/screens/custom/custom_data_list_tile.dart';
+import 'package:flutter_app/screens/item/item_details.dart';
 import 'package:provider/provider.dart';
 
-class CabinetList extends StatefulWidget {
+class ItemList extends StatefulWidget {
   final Function onDelete;
 
-  const CabinetList({Key key, this.onDelete}) : super(key: key);
+  const ItemList({Key key, this.onDelete}) : super(key: key);
 
   @override
-  _CabinetListState createState() => _CabinetListState();
+  _ItemListState createState() => _ItemListState();
 }
 
-class _CabinetListState extends State<CabinetList> {
+class _ItemListState extends State<ItemList> {
   _showMenuButton() {
     return PopupMenuButton(
         itemBuilder: (_) => <PopupMenuItem<String>>[
@@ -31,19 +31,19 @@ class _CabinetListState extends State<CabinetList> {
 
   @override
   Widget build(BuildContext context) {
-    final _cabinets = Provider.of<List<CabinetModel>>(context);
+    final _items = Provider.of<List<ItemModel>>(context);
     final _user = Provider.of<User>(context);
-    if (_cabinets != null && _cabinets.length > 0) {
+    if (_items != null && _items.length > 0) {
       return ListView.builder(
           shrinkWrap: true,
-          itemCount: _cabinets.length,
+          itemCount: _items.length,
           itemBuilder: (BuildContext context, int index) {
-            CabinetModel currentCabinet = _cabinets[index];
+            ItemModel currentItem = _items[index];
 
             return Dismissible(
-              key: Key(currentCabinet.cabinetId),
+              key: Key(currentItem.itemId),
               confirmDismiss: (direction) =>
-                  promptUser(direction, currentCabinet, _user),
+                  promptUser(direction, currentItem, _user),
               background: Container(
                 alignment: AlignmentDirectional.centerEnd,
                 color: Color(0Xffba504b),
@@ -58,7 +58,7 @@ class _CabinetListState extends State<CabinetList> {
               ),
               onDismissed: (direction) {
                 setState(() {
-                  _cabinets.removeAt(index);
+                  _items.removeAt(index);
                 });
               },
               child: InkWell(
@@ -67,20 +67,18 @@ class _CabinetListState extends State<CabinetList> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CabinetDetails(
-                        cabinet: currentCabinet,
+                      builder: (context) => ItemDetails(
+                        item: currentItem,
                       ),
                     ),
                   );
                 },
                 child: CustomDataListTile(
                   nameTitle: "Name",
-                  nameValue: currentCabinet.cabinetName,
-                  noOfChildTitle: "No. of Drawers",
-                  noOfChildvalue: currentCabinet.drawers != null
-                      ? currentCabinet.drawers.length.toString()
-                      : "0",
-                  imageUrl: currentCabinet.cabinetImageUrl,
+                  nameValue: currentItem.itemName,
+                  noOfChildTitle: "",
+                  noOfChildvalue: "",
+                  imageUrl: currentItem.itemImageUrl,
                 ),
               ),
             );
@@ -88,7 +86,7 @@ class _CabinetListState extends State<CabinetList> {
     } else {
       return Center(
           child: Text(
-        "Add your first cabinet.",
+        "Add your first item.",
         textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: 20.0,
@@ -106,7 +104,7 @@ class _CabinetListState extends State<CabinetList> {
   }
 
   Future<bool> promptUser(
-      DismissDirection direction, CabinetModel cabinet, User user) async {
+      DismissDirection direction, ItemModel item, User user) async {
     String action;
     if (direction == DismissDirection.startToEnd) {
       action = "archive";
@@ -123,8 +121,7 @@ class _CabinetListState extends State<CabinetList> {
               TextButton(
                 child: Text("Ok"),
                 onPressed: () async {
-                  await widget.onDelete(cabinet.cabinetImageName, cabinet.key,
-                      user.uid, cabinet.parentDocId);
+                  await widget.onDelete(item.itemImageName, item.key, user.uid, item.parentDocId);
                   Navigator.of(context).pop(true);
                 },
               ),

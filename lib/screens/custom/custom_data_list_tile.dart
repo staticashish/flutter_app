@@ -27,14 +27,30 @@ class _CustomDataListTileState extends State<CustomDataListTile> {
       children: [
         Card(
           margin: const EdgeInsets.fromLTRB(40.0, 5.0, 5.0, 5.0),
-          elevation: 10,
-          shadowColor: Color(0Xff334A7D),
+          elevation: 15,
+          shadowColor: Color(0Xff8685EF),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0Xffffffff),
+                    //Color(0XffEDEDFC),
+                    //Color(0XffB9B9F5),
+                    //Color(0XffA8A7F3),
+                    //Color(0Xff9796F1),
+                    //Color(0Xff8685EF),
+                    //Color(0Xff8685EF),
+                    //Color(0Xff8685EF),
+                    Color(0Xff8685EF),
+                  ]),
+            ),
             height: 120,
-            margin: const EdgeInsets.fromLTRB(85.0, 1.0, 1.0, 1.0),
+            padding: const EdgeInsets.fromLTRB(85.0, 1.0, 1.0, 1.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -67,7 +83,10 @@ class _CustomDataListTileState extends State<CustomDataListTile> {
                   flex: 1,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.arrow_right),
+                    child: Icon(
+                      Icons.arrow_right,
+                      color: Color(0XffAEEF85),
+                    ),
                   ),
                 )
               ],

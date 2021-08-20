@@ -61,12 +61,15 @@ class _CabinetDrawerFormState extends State<CabinetDrawerForm> {
                     child: Column(
                       children: [
                         Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: const EdgeInsets.only(top: 5),
                             child: ImageSelector(
                               onImageSelect: _onImageSelect,
                             )),
                         const Divider(
-                          height: 50.0,
+                          height: 20.0,
+                          indent: 20.0,
+                          endIndent: 20.0,
+                          thickness: 1.0,
                         ),
                         TextFormField(
                           validator: (val) {
@@ -92,7 +95,6 @@ class _CabinetDrawerFormState extends State<CabinetDrawerForm> {
                             });
                           },
                         ),
-                        SizedBox(height: 10.0),
                         TextFormField(
                           validator: (val) {
                             if (val.isEmpty) {
@@ -117,7 +119,6 @@ class _CabinetDrawerFormState extends State<CabinetDrawerForm> {
                             });
                           },
                         ),
-                        SizedBox(height: 10.0),
                         TextFormField(
                           validator: (val) {
                             if (val.isEmpty) {
@@ -144,7 +145,6 @@ class _CabinetDrawerFormState extends State<CabinetDrawerForm> {
                             });
                           },
                         ),
-                        SizedBox(height: 20.0),
                         DropdownButtonFormField(
                           value: selectedCabinet != null ? selectedCabinet : null,
                           decoration: InputDecoration(
@@ -167,11 +167,12 @@ class _CabinetDrawerFormState extends State<CabinetDrawerForm> {
                                 () => selectedCabinet = val,
                           ),
                         ),
-                        SizedBox(height: 10.0),
+                        SizedBox(height: 20.0),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0Xff00A09A),
-                            elevation: 10,
+                            primary: Color(0XffAEEF85),
+                            shadowColor: Color(0Xff8685EF),
+                            elevation: 15,
                             shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(10.0),
                             ),
@@ -211,7 +212,7 @@ class _CabinetDrawerFormState extends State<CabinetDrawerForm> {
                                     "Add Drawer",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black87,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18.0),
                                   ),

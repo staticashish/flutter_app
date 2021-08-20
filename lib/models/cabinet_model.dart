@@ -8,7 +8,7 @@ class CabinetModel {
   String cabinetImageUrl;
   String cabinetImageName;
   String cabinetDescription;
-  String roomDocId;
+  String parentDocId;
   List drawers;
 
   CabinetModel(
@@ -18,7 +18,7 @@ class CabinetModel {
       this.cabinetDescription,
       this.cabinetImageUrl,
       this.cabinetImageName,
-      this.roomDocId);
+      this.parentDocId);
 
   CabinetModel.fromSnapshot(QueryDocumentSnapshot snapshot)
       : key = snapshot.id,
@@ -28,7 +28,7 @@ class CabinetModel {
         cabinetDescription = snapshot.data()['cabinetDescription'],
         cabinetImageUrl = snapshot.data()['cabinetImageUrl'],
         cabinetImageName = snapshot.data()['cabinetImageName'],
-        roomDocId = snapshot.data()['roomDocId'],
+        parentDocId = snapshot.data()['parentDocId'],
         drawers = snapshot.data()['drawers'];
 
   toJson() {
@@ -39,7 +39,7 @@ class CabinetModel {
       "cabinetDescription": cabinetDescription,
       "cabinetImageUrl": cabinetImageUrl,
       "cabinetImageName": cabinetImageName,
-      roomDocId: true
+      "parentDocId": parentDocId
     };
   }
 }

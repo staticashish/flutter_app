@@ -54,7 +54,7 @@ class _RoomFormState extends State<RoomForm> {
                   child: Column(
                     children: [
                       Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10.0),
+                          padding: const EdgeInsets.only(top: 5),
                           child: ImageSelector(
                             onImageSelect: _onImageSelect,
                           )),
@@ -62,7 +62,7 @@ class _RoomFormState extends State<RoomForm> {
                         height: 20.0,
                         indent: 20.0,
                         endIndent: 20.0,
-                        thickness: 2.0,
+                        thickness: 1.0,
                       ),
                       TextFormField(
                         validator: (val) {
@@ -87,7 +87,6 @@ class _RoomFormState extends State<RoomForm> {
                           });
                         },
                       ),
-                      SizedBox(height: 10.0),
                       TextFormField(
                         validator: (val) {
                           if (val.isEmpty) {
@@ -114,7 +113,6 @@ class _RoomFormState extends State<RoomForm> {
                           });
                         },
                       ),
-                      SizedBox(height: 10.0),
                       TextFormField(
                         validator: (val) {
                           if (val.isEmpty) {
@@ -143,12 +141,13 @@ class _RoomFormState extends State<RoomForm> {
                         },
                       ),
                       SizedBox(
-                        height: 30.0,
+                        height: 20.0,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Color(0Xff00A09A),
-                          elevation: 10,
+                          primary: Color(0XffAEEF85),
+                          shadowColor: Color(0Xff8685EF),
+                          elevation: 15,
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10.0),
                           ),
@@ -187,7 +186,7 @@ class _RoomFormState extends State<RoomForm> {
                                   "Add Room",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18.0),
                                 ),

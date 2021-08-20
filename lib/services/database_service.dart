@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/models/cabinet_drawer_model.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
+import 'package:flutter_app/models/item_model.dart';
 import 'package:flutter_app/models/room_model.dart';
 
 class DatabaseService {
@@ -27,6 +28,10 @@ class DatabaseService {
     return _db.collection('user').doc(uid).collection('drawer');
   }
 
+  CollectionReference _getItemCollectionReference() {
+    return _db.collection('user').doc(uid).collection('item');
+  }
+
   Future addRoomData(RoomModel roomModel) async {
     _getRoomCollectionReference().add(roomModel.toJson()).then((value) {
       return value.id;
@@ -49,6 +54,14 @@ class DatabaseService {
     });
   }
 
+  Future<String> addItemData(ItemModel itemModel) async {
+    return _getItemCollectionReference()
+        .add(itemModel.toJson())
+        .then((value) {
+      return value.id;
+    });
+  }
+
   Future updateUserData(String displayName, String email) async {
     _getUserCollectionReference().doc(this.uid).set({
       'displayName': displayName,
@@ -64,12 +77,24 @@ class DatabaseService {
     _getCabinetCollectionReference().doc(this.docId).update(data);
   }
 
+  Future updateDrawerData(Map<String, dynamic> data) async {
+    _getDrawerCollectionReference().doc(this.docId).update(data);
+  }
+
   Future deleteRoomData() async {
     _getRoomCollectionReference().doc(this.docId).delete();
   }
 
   Future deleteCabinetData() async {
     _getCabinetCollectionReference().doc(this.docId).delete();
+  }
+
+  Future deleteDrawerData() async {
+    _getDrawerCollectionReference().doc(this.docId).delete();
+  }
+
+  Future deleteItemData() async {
+    _getItemCollectionReference().doc(this.docId).delete();
   }
 
   List<RoomModel> _roomListFromSnapshot(QuerySnapshot snapshot) {
@@ -90,6 +115,12 @@ class DatabaseService {
     }).toList();
   }
 
+  List<ItemModel> _itemListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return ItemModel.fromSnapshot(doc);
+    }).toList();
+  }
+
   Stream<List<RoomModel>> get rooms {
     return _getRoomCollectionReference().snapshots().map(_roomListFromSnapshot);
   }
@@ -104,5 +135,11 @@ class DatabaseService {
     return _getDrawerCollectionReference()
         .snapshots()
         .map(_drawerListFromSnapshot);
+  }
+
+  Stream<List<ItemModel>> get items {
+    return _getItemCollectionReference()
+        .snapshots()
+        .map(_itemListFromSnapshot);
   }
 }

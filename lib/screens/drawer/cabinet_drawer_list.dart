@@ -63,8 +63,10 @@ class _CabinetDrawerListState extends State<CabinetDrawerList> {
                 child: CustomDataListTile(
                   nameTitle: "Name",
                   nameValue: currentDrawer.drawerName,
-                  noOfChildTitle: "",
-                  noOfChildvalue: "",
+                  noOfChildTitle: "No. of Items",
+                  noOfChildvalue: currentDrawer.items != null
+                      ? currentDrawer.items.length.toString()
+                      : "0",
                   imageUrl: currentDrawer.drawerImageUrl,
                 ),
               ),
@@ -102,18 +104,19 @@ class _CabinetDrawerListState extends State<CabinetDrawerList> {
 
     return await showCupertinoDialog<bool>(
           context: context,
-          builder: (context) => CupertinoAlertDialog(
+          builder: (context) => AlertDialog(
+            elevation: 10,
             content: Text("Are you sure you want to $action?"),
             actions: <Widget>[
-              CupertinoDialogAction(
+              TextButton(
                 child: Text("Ok"),
                 onPressed: () async {
-                  await widget.onDelete(
-                      drawer.drawerImageName, drawer.key, user.uid);
+                  await widget.onDelete(drawer.drawerImageName, drawer.key,
+                      user.uid, drawer.parentDocId);
                   Navigator.of(context).pop(true);
                 },
               ),
-              CupertinoDialogAction(
+              TextButton(
                 child: Text('Cancel'),
                 onPressed: () {
                   return Navigator.of(context).pop(false);

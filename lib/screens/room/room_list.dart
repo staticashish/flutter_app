@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class RoomList extends StatefulWidget {
   final Function onDelete;
+
   RoomList({this.onDelete});
 
   @override
@@ -83,7 +84,9 @@ class _RoomListState extends State<RoomList> {
                     nameTitle: "Name",
                     nameValue: currentRoom.roomName,
                     noOfChildTitle: "No. of cabinets",
-                    noOfChildvalue: currentRoom.cabinets != null ? currentRoom.cabinets.length.toString(): "0",
+                    noOfChildvalue: currentRoom.cabinets != null
+                        ? currentRoom.cabinets.length.toString()
+                        : "0",
                     imageUrl: currentRoom.roomImageUrl,
                   ),
                 ),
@@ -121,17 +124,18 @@ class _RoomListState extends State<RoomList> {
 
     return await showCupertinoDialog<bool>(
           context: context,
-          builder: (context) => CupertinoAlertDialog(
+          builder: (context) => AlertDialog(
+            elevation: 10,
             content: Text("Are you sure you want to $action?"),
             actions: <Widget>[
-              CupertinoDialogAction(
+              TextButton(
                 child: Text("Ok"),
                 onPressed: () async {
                   await widget.onDelete(room.roomImageName, room.key, user.uid);
                   Navigator.of(context).pop(true);
                 },
               ),
-              CupertinoDialogAction(
+              TextButton(
                 child: Text('Cancel'),
                 onPressed: () {
                   return Navigator.of(context).pop(false);

@@ -13,33 +13,30 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-
   @override
   Widget build(BuildContext context) {
-
-   return BottomNavigationBar(
+    return BottomNavigationBar(
         currentIndex: widget.index,
         elevation: 10,
-        selectedItemColor: Color(0Xff48C392),
-       selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-       onTap: widget.onTapFunction,
+        selectedItemColor: Color(0Xff8685EF),
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        onTap: widget.onTapFunction,
         type: BottomNavigationBarType.fixed,
         iconSize: 30,
-
         items: <BottomNavigationBarItem>[
           buildBottomNavigationBarItem(AppIcons.dashboard, "Start"),
-          buildBottomNavigationBarItem(AppIcons.living_room,"Room"),
-          buildBottomNavigationBarItem(AppIcons.cabinet,"Cabinet"),
-          buildBottomNavigationBarItem(AppIcons.cabinet_drawer,"Drawer"),
-          buildBottomNavigationBarItem(AppIcons.tools_things,"Item"),
-        ]
-    );
+          buildBottomNavigationBarItem(AppIcons.living_room, "Room"),
+          buildBottomNavigationBarItem(AppIcons.cabinet, "Cabinet"),
+          buildBottomNavigationBarItem(AppIcons.cabinet_drawer, "Drawer"),
+          buildBottomNavigationBarItem(AppIcons.tools_things, "Item"),
+        ]);
   }
 
-  BottomNavigationBarItem buildBottomNavigationBarItem(IconData iconData, String text) {
+  BottomNavigationBarItem buildBottomNavigationBarItem(
+      IconData iconData, String text) {
     return BottomNavigationBarItem(
-              icon: Icon(iconData),
-              label: text,
+      icon: Icon(iconData),
+      label: text,
     );
   }
 }

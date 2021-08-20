@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class DataField extends StatelessWidget {
+class TitleDataField extends StatelessWidget {
   final String titleText;
-  final String valueText;
+  final String descriptionText;
 
-  const DataField({Key key, this.titleText, this.valueText}) : super(key: key);
+  const TitleDataField({Key key, this.titleText, this.descriptionText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +17,23 @@ class DataField extends StatelessWidget {
               Text(
                 this.titleText,
                 style: TextStyle(
-                  color: Colors.grey[600],
-                  fontSize: 15,
+                  color: Color(0Xff8685EF),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(
                 height: 2,
               ),
               Text(
-                this.valueText,
+                this.descriptionText,
                 style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.grey,
                 ),
+              ),
+              SizedBox(
+                height: 40,
               ),
             ],
           ),

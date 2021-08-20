@@ -15,20 +15,23 @@ class _LeftNavigationState extends State<LeftNavigation> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    
+
     return Drawer(
       elevation: 10,
       child: ListView(
         children: [
           DrawerHeader(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color(0Xff48C392),
-                        Color(0Xff00A09A),
-                      ]
-                  )
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0Xffffffff),
+                    Color(0XffAEEF85),
+                    Color(0XffAEEF85),
+                    Color(0XffAEEF85),
+                  ],
+                ),
               ),
               child: Center(
                 child: Column(
@@ -44,32 +47,26 @@ class _LeftNavigationState extends State<LeftNavigation> {
                     SizedBox(height: 10.0),
                     RichText(
                       text: TextSpan(
-                          text: user.displayName ?? user.email,
-                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)
+                        text: user.displayName ?? user.email,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     )
                   ],
                 ),
-              )
-          ),
-          CustomNavListTile(Icons.person,
-              'Profile',
-                  () {
-                print('tap profile');
-              }
-          ),
-          CustomNavListTile(Icons.settings,
-              'Setting',
-                  () {
-                print('tap setting');
-              }
-          ),
-          CustomNavListTile(Icons.lock,
-              'Logout',
-                  () async {
-                await _authService.signOut();
-              }
-          )
+              )),
+          CustomNavListTile(Icons.person, 'Profile', () {
+            print('tap profile');
+          }),
+          CustomNavListTile(Icons.settings, 'Setting', () {
+            print('tap setting');
+          }),
+          CustomNavListTile(Icons.lock, 'Logout', () async {
+            await _authService.signOut();
+          })
         ],
       ),
     );

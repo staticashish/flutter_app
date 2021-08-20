@@ -89,6 +89,7 @@ class _RoomState extends State<Room> {
           _showRoomAdd();
         },
         child: Icon(Icons.add_box_rounded),
+        backgroundColor: Color(0XffAEEF85),
       ),
     );
   }
