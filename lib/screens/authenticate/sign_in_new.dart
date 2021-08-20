@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/services/auth_service.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sign_button/constants.dart';
 import 'package:sign_button/create_button.dart';
 
@@ -170,8 +171,8 @@ class _SignInNewState extends State<SignInNew> {
                                         child: new Text(
                                           "Forgot Password?",
                                           style: TextStyle(
-                                            color: Color(0Xff2b6684),
-                                            fontWeight: FontWeight.w600,
+                                            color: Color(0Xff8685EF),
+                                            fontWeight: FontWeight.w500,
                                             fontSize: 13.0,
                                           ),
                                           textAlign: TextAlign.end,
@@ -191,9 +192,9 @@ class _SignInNewState extends State<SignInNew> {
                                   ),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      // background color
-                                      primary: Color(0Xff00A09A),
-                                      elevation: 10,
+                                      primary: Color(0XffAEEF85),
+                                      shadowColor: Color(0Xff8685EF),
+                                      elevation: 15,
                                       shape: new RoundedRectangleBorder(
                                         borderRadius:
                                             new BorderRadius.circular(10.0),
@@ -231,8 +232,8 @@ class _SignInNewState extends State<SignInNew> {
                                             child: Text(
                                               "Login",
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
+                                              style: GoogleFonts.montserrat(
+                                                  color: Colors.black87,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20.0),
                                             ),
@@ -318,9 +319,10 @@ class _SignInNewState extends State<SignInNew> {
                                         child: Text(
                                           'Register',
                                           style: TextStyle(
-                                              color: Color(0Xff2b6684),
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600),
+                                            color: Color(0Xff8685EF),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         onPressed: () {
                                           widget.toggleView();

@@ -207,8 +207,8 @@ class _RegisterNewState extends State<RegisterNew> {
                                     child: new Text(
                                       "Already have an account?",
                                       style: TextStyle(
-                                        color: Color(0Xff2b6684),
-                                        fontWeight: FontWeight.bold,
+                                        color: Color(0Xff8685EF),
+                                        fontWeight: FontWeight.w500,
                                         fontSize: 15.0,
                                       ),
                                       textAlign: TextAlign.end,
@@ -222,9 +222,9 @@ class _RegisterNewState extends State<RegisterNew> {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  // background color
-                                  primary: Color(0Xff00A09A),
-                                  elevation: 10,
+                                  primary: Color(0XffAEEF85),
+                                  shadowColor: Color(0Xff8685EF),
+                                  elevation: 15,
                                   shape: new RoundedRectangleBorder(
                                     borderRadius: new BorderRadius.circular(10.0),
                                   ),
@@ -257,8 +257,8 @@ class _RegisterNewState extends State<RegisterNew> {
                                         child: Text(
                                           "Sign Up",
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
+                                          style: GoogleFonts.montserrat(
+                                              color: Colors.black87,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18.0),
                                         ),
