@@ -15,7 +15,7 @@ class ItemSearchDelegate extends SearchDelegate {
         onPressed: () {
           query = '';
         },
-        icon: Icon(Icons.close_outlined),
+        icon: AnimatedIcon(icon: AnimatedIcons.menu_close, progress: transitionAnimation),
       ),
     ];
   }
@@ -26,7 +26,7 @@ class ItemSearchDelegate extends SearchDelegate {
       onPressed: () {
         close(context, null);
       },
-      icon: Icon(Icons.arrow_back_outlined),
+      icon: AnimatedIcon(icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
     );
   }
 
