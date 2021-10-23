@@ -10,6 +10,7 @@ class CabinetDrawerModel {
   String drawerImageName;
   String drawerDescription;
   String parentDocId;
+  Timestamp createdAt;
   List items;
 
   CabinetDrawerModel(this.drawerId,
@@ -29,6 +30,7 @@ class CabinetDrawerModel {
         drawerImageUrl = snapshot.data()['drawerImageUrl'],
         drawerImageName = snapshot.data()['drawerImageName'],
         parentDocId = snapshot.data()['parentDocId'],
+        createdAt = snapshot.data()['createdAt'],
         items = snapshot.data()['items'];
 
   toJson() {
@@ -39,6 +41,7 @@ class CabinetDrawerModel {
       "drawerDescription": drawerDescription,
       "drawerImageUrl": drawerImageUrl,
       "drawerImageName": drawerImageName,
+      "createdAt" : FieldValue.serverTimestamp(),
       "parentDocId": parentDocId
     };
   }

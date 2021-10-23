@@ -20,8 +20,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         theme: ThemeData(
-          //scaffoldBackgroundColor: const Color(0XffFAF7FF),
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.deepPurple,
           textTheme: GoogleFonts.montserratTextTheme(
             Theme.of(context).textTheme,
           ),

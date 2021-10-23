@@ -8,6 +8,7 @@ class RoomModel {
   String roomImageUrl;
   String roomImageName;
   String roomDescription;
+  Timestamp createdAt;
   List cabinets;
 
   RoomModel(this.roomId, this.roomName, this.roomSize, this.roomDescription,
@@ -21,6 +22,7 @@ class RoomModel {
         roomImageUrl = snapshot.data()["roomImageUrl"],
         roomImageName = snapshot.data()["roomImageName"],
         roomDescription = snapshot.data()["roomDescription"],
+        createdAt = snapshot.data()["createdAt"],
         cabinets = snapshot.data()["cabinets"];
 
 
@@ -31,7 +33,8 @@ class RoomModel {
       "roomSize": roomSize,
       "roomImageUrl": roomImageUrl,
       "roomImageName": roomImageName,
-      "roomDescription": roomDescription
+      "roomDescription": roomDescription,
+      "createdAt": FieldValue.serverTimestamp()
     };
   }
 }

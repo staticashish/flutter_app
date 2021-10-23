@@ -9,6 +9,7 @@ import 'package:flutter_app/screens/cabinet/cabinet_form.dart';
 import 'package:flutter_app/screens/cabinet/cabinet_list.dart';
 import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/navigation/left_navigation.dart';
+import 'package:flutter_app/screens/search/cabinet_searchdelegate.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:flutter_app/services/storage_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -75,7 +76,8 @@ class _CabinetState extends State<Cabinet> {
     _showToast("Cabinet Added");
   }
 
-  _onDelete(String cabinetImageName, String cabinetKey, String uid, String roomDocId) async {
+  _onDelete(String cabinetImageName, String cabinetKey, String uid,
+      String roomDocId) async {
     await StorageService(uid: uid).deleteImage(cabinetImageName);
     await DatabaseService(uid: uid, docId: cabinetKey).deleteCabinetData();
     Map<String, dynamic> data = Map();
@@ -86,10 +88,12 @@ class _CabinetState extends State<Cabinet> {
 
   @override
   Widget build(BuildContext context) {
+    var _cabinets = Provider.of<List<CabinetModel>>(context);
     User user = Provider.of<User>(context);
     return Scaffold(
       appBar: CustomAppBar(
         title: "Cabinet",
+        searchDelegate: CabineSearchDelegate(_cabinets),
       ),
       body: SafeArea(
         child: Stack(
@@ -105,7 +109,9 @@ class _CabinetState extends State<Cabinet> {
         onPressed: () {
           _showCabinetAdd(user.uid);
         },
-        child: Icon(Icons.add_box),
+        child: Icon(
+          Icons.add_box,
+        ),
         backgroundColor: Color(0XffAEEF85),
       ),
     );

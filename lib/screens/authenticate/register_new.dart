@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class RegisterNew extends StatefulWidget {
   final Function toggleView;
+
   RegisterNew({this.toggleView});
 
   @override
@@ -91,8 +92,10 @@ class _RegisterNewState extends State<RegisterNew> {
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   hintText: 'Jon Doe',
-                                  prefixIcon: new Icon(Icons.person,
-                                      color: Color(0Xff9cacbf)),
+                                  prefixIcon: new Icon(
+                                    Icons.person,
+                                    color: Color(0XffA8A7F3),
+                                  ),
                                   labelText: "Enter Full Name",
                                   fillColor: Colors.white,
                                   labelStyle: TextStyle(
@@ -119,8 +122,10 @@ class _RegisterNewState extends State<RegisterNew> {
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   hintText: 'abc@xyz.com',
-                                  prefixIcon: new Icon(Icons.email,
-                                      color: Color(0Xff9cacbf)),
+                                  prefixIcon: new Icon(
+                                    Icons.email,
+                                    color: Color(0XffA8A7F3),
+                                  ),
                                   hintStyle: TextStyle(color: Colors.grey[500]),
                                   labelText: "Enter Email",
                                   fillColor: Colors.white,
@@ -148,9 +153,12 @@ class _RegisterNewState extends State<RegisterNew> {
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                     hintText: '**********',
-                                    hintStyle: TextStyle(color: Colors.grey[500]),
-                                    prefixIcon: new Icon(Icons.lock,
-                                        color: Color(0Xff9cacbf)),
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[500]),
+                                    prefixIcon: new Icon(
+                                      Icons.lock,
+                                      color: Color(0XffA8A7F3),
+                                    ),
                                     labelText: "Enter Password",
                                     fillColor: Colors.white,
                                     labelStyle: TextStyle(
@@ -183,8 +191,10 @@ class _RegisterNewState extends State<RegisterNew> {
                                 decoration: InputDecoration(
                                   hintText: '**********',
                                   hintStyle: TextStyle(color: Colors.grey[500]),
-                                  prefixIcon: new Icon(Icons.lock,
-                                      color: Color(0Xff9cacbf)),
+                                  prefixIcon: new Icon(
+                                    Icons.lock,
+                                    color: Color(0XffA8A7F3),
+                                  ),
                                   labelText: "Re-Enter Password",
                                   fillColor: Colors.white,
                                   labelStyle: TextStyle(
@@ -226,10 +236,12 @@ class _RegisterNewState extends State<RegisterNew> {
                                   shadowColor: Color(0Xff8685EF),
                                   elevation: 15,
                                   shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0),
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0),
                                   ),
                                   textStyle: TextStyle(
-                                      fontSize: 50, fontWeight: FontWeight.bold),
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 onPressed: () async {
                                   if (_formKey.currentState.validate()) {
@@ -240,7 +252,8 @@ class _RegisterNewState extends State<RegisterNew> {
                                             email, password, fName);
                                     if (result.user == null) {
                                       print("==> " + result.error);
-                                      _showMaterialDialog(result.error, "Error");
+                                      _showMaterialDialog(
+                                          result.error, "Error");
                                     }
                                     pregress.dismiss();
                                   }
@@ -259,7 +272,7 @@ class _RegisterNewState extends State<RegisterNew> {
                                           textAlign: TextAlign.center,
                                           style: GoogleFonts.montserrat(
                                               color: Colors.black87,
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.w600,
                                               fontSize: 18.0),
                                         ),
                                       ),

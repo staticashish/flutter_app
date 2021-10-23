@@ -113,8 +113,10 @@ class _SignInNewState extends State<SignInNew> {
                                     textAlign: TextAlign.left,
                                     decoration: InputDecoration(
                                       hintText: 'abc@xyz.com',
-                                      prefixIcon: new Icon(Icons.email,
-                                          color: Color(0Xff9cacbf)),
+                                      prefixIcon: new Icon(
+                                        Icons.email,
+                                        color: Color(0XffA8A7F3),
+                                      ),
                                       labelText: "Enter Email",
                                       labelStyle: TextStyle(
                                         color: Color(0Xff9cacbf),
@@ -141,8 +143,10 @@ class _SignInNewState extends State<SignInNew> {
                                     textAlign: TextAlign.left,
                                     decoration: InputDecoration(
                                       hintText: '**********',
-                                      prefixIcon: new Icon(Icons.lock,
-                                          color: Color(0Xff9cacbf)),
+                                      prefixIcon: new Icon(
+                                        Icons.lock,
+                                        color: Color(0XffA8A7F3),
+                                      ),
                                       labelText: "Enter Password",
                                       labelStyle: TextStyle(
                                         color: Color(0Xff9cacbf),
@@ -178,11 +182,13 @@ class _SignInNewState extends State<SignInNew> {
                                           textAlign: TextAlign.end,
                                         ),
                                         onPressed: () => {
-                                          Navigator.push(
+                                          /*Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      SignInNew()))
+                                                      SignInNew()))*/
+                                          _showButtonPressDialog(
+                                              context, 'Forgot Password')
                                         },
                                       ),
                                     ],
@@ -234,7 +240,7 @@ class _SignInNewState extends State<SignInNew> {
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.montserrat(
                                                   color: Colors.black87,
-                                                  fontWeight: FontWeight.bold,
+                                                  fontWeight: FontWeight.w600,
                                                   fontSize: 20.0),
                                             ),
                                           ),

@@ -79,8 +79,8 @@ class _CabinetDrawerListState extends State<CabinetDrawerList> {
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0Xff48C392),
+              fontWeight: FontWeight.w500,
+              color: Color(0Xff8685EF),
               shadows: [
                 Shadow(
                   color: Colors.blueGrey,

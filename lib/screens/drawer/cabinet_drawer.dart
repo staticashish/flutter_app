@@ -9,6 +9,7 @@ import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/drawer/cabinet_drawer_form.dart';
 import 'package:flutter_app/screens/drawer/cabinet_drawer_list.dart';
 import 'package:flutter_app/screens/navigation/left_navigation.dart';
+import 'package:flutter_app/screens/search/cabinet_drawer_searchdelegate.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:flutter_app/services/storage_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,7 +22,6 @@ class CabinetDrawer extends StatefulWidget {
 }
 
 class _CabinetDrawerState extends State<CabinetDrawer> {
-
   String drawerKey;
 
   void _showDrawerAdd(uid) {
@@ -75,25 +75,30 @@ class _CabinetDrawerState extends State<CabinetDrawer> {
     });
     Map<String, dynamic> data = Map();
     data.putIfAbsent("drawers", () => FieldValue.arrayUnion([drawerKey]));
-    await DatabaseService(docId: cabinetDocId, uid: uid).updateCabinetData(data);
+    await DatabaseService(docId: cabinetDocId, uid: uid)
+        .updateCabinetData(data);
     _showToast("Drawer Added");
   }
 
-  _onDelete(String drawerImageName, String drawerKey, String uid, String cabinetDocId) async {
+  _onDelete(String drawerImageName, String drawerKey, String uid,
+      String cabinetDocId) async {
     await StorageService(uid: uid).deleteImage(drawerImageName);
     await DatabaseService(uid: uid, docId: drawerKey).deleteDrawerData();
     Map<String, dynamic> data = Map();
     data.putIfAbsent("drawers", () => FieldValue.arrayRemove([drawerKey]));
-    await DatabaseService(docId: cabinetDocId, uid: uid).updateCabinetData(data);
+    await DatabaseService(docId: cabinetDocId, uid: uid)
+        .updateCabinetData(data);
     _showToast("Cabinet Removed");
   }
 
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
+    var _drawers = Provider.of<List<CabinetDrawerModel>>(context);
     return Scaffold(
       appBar: CustomAppBar(
         title: "Drawer",
+        searchDelegate: CabinetDrawerSearchDelegate(_drawers),
       ),
       body: SafeArea(
         child: Stack(
@@ -109,7 +114,9 @@ class _CabinetDrawerState extends State<CabinetDrawer> {
         onPressed: () {
           _showDrawerAdd(user.uid);
         },
-        child: Icon(Icons.add_box),
+        child: Icon(
+          Icons.add_box,
+        ),
         backgroundColor: Color(0XffAEEF85),
       ),
     );

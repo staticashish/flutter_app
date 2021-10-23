@@ -3,6 +3,7 @@ import 'package:flutter_app/models/cabinet_drawer_model.dart';
 import 'package:flutter_app/models/cabinet_model.dart';
 import 'package:flutter_app/models/item_model.dart';
 import 'package:flutter_app/models/room_model.dart';
+import 'package:flutter_app/screens/item/item.dart';
 
 class DatabaseService {
   final String docId;
@@ -13,6 +14,7 @@ class DatabaseService {
   final _db = FirebaseFirestore.instance;
 
   CollectionReference _getUserCollectionReference() {
+    FieldValue.serverTimestamp();
     return _db.collection('user');
   }
 
@@ -122,23 +124,29 @@ class DatabaseService {
   }
 
   Stream<List<RoomModel>> get rooms {
-    return _getRoomCollectionReference().snapshots().map(_roomListFromSnapshot);
+    return _getRoomCollectionReference()
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map(_roomListFromSnapshot);
   }
 
   Stream<List<CabinetModel>> get cabinets {
     return _getCabinetCollectionReference()
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map(_cabinetListFromSnapshot);
   }
 
   Stream<List<CabinetDrawerModel>> get drawers {
     return _getDrawerCollectionReference()
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map(_drawerListFromSnapshot);
   }
 
   Stream<List<ItemModel>> get items {
     return _getItemCollectionReference()
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map(_itemListFromSnapshot);
   }

@@ -5,7 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
-  CustomAppBar({this.title});
+  final SearchDelegate searchDelegate;
+
+  CustomAppBar({this.title, this.searchDelegate});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -37,6 +39,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
           fontWeight: FontWeight.w500,
         ),
       ),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.search_outlined),
+          onPressed: () {
+            showSearch(context: context, delegate: widget.searchDelegate);
+          },
+        ),
+      ],
     );
   }
 }

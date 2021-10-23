@@ -7,10 +7,12 @@ import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/navigation/left_navigation.dart';
 import 'package:flutter_app/screens/room/room_form.dart';
 import 'package:flutter_app/screens/room/room_list.dart';
+import 'package:flutter_app/screens/search/room_searchdelegate.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:flutter_app/services/storage_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class Room extends StatefulWidget {
   final ValueChanged<int> onTabSelected;
@@ -68,10 +70,12 @@ class _RoomState extends State<Room> {
 
   @override
   Widget build(BuildContext context) {
+    var _rooms = Provider.of<List<RoomModel>>(context);
     return Scaffold(
       drawer: LeftNavigation(),
       appBar: CustomAppBar(
         title: "Room",
+        searchDelegate: RoomSearchDelegate(_rooms),
       ),
       body: SafeArea(
         child: Stack(
@@ -88,7 +92,9 @@ class _RoomState extends State<Room> {
         onPressed: () {
           _showRoomAdd();
         },
-        child: Icon(Icons.add_box_rounded),
+        child: Icon(
+          Icons.add_box,
+        ),
         backgroundColor: Color(0XffAEEF85),
       ),
     );

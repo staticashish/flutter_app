@@ -9,6 +9,7 @@ class CabinetModel {
   String cabinetImageName;
   String cabinetDescription;
   String parentDocId;
+  Timestamp createdAt;
   List drawers;
 
   CabinetModel(
@@ -29,6 +30,7 @@ class CabinetModel {
         cabinetImageUrl = snapshot.data()['cabinetImageUrl'],
         cabinetImageName = snapshot.data()['cabinetImageName'],
         parentDocId = snapshot.data()['parentDocId'],
+        createdAt = snapshot.data()['createdAt'],
         drawers = snapshot.data()['drawers'];
 
   toJson() {
@@ -39,6 +41,7 @@ class CabinetModel {
       "cabinetDescription": cabinetDescription,
       "cabinetImageUrl": cabinetImageUrl,
       "cabinetImageName": cabinetImageName,
+      "createdAt" : FieldValue.serverTimestamp(),
       "parentDocId": parentDocId
     };
   }

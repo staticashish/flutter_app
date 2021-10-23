@@ -10,6 +10,7 @@ import 'package:flutter_app/screens/custom/custom_app_bar.dart';
 import 'package:flutter_app/screens/item/item_form.dart';
 import 'package:flutter_app/screens/item/item_list.dart';
 import 'package:flutter_app/screens/navigation/left_navigation.dart';
+import 'package:flutter_app/screens/search/item_searchdelegate.dart';
 import 'package:flutter_app/services/database_service.dart';
 import 'package:flutter_app/services/storage_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -69,7 +70,8 @@ class _ItemState extends State<Item> {
     _showToast("Item Added");
   }
 
-  _onDelete(String itemImageName, String itemDocId, String uid, String drawerDocId) async {
+  _onDelete(String itemImageName, String itemDocId, String uid,
+      String drawerDocId) async {
     await StorageService(uid: uid).deleteImage(itemImageName);
     await DatabaseService(uid: uid, docId: itemDocId).deleteItemData();
 
@@ -82,9 +84,11 @@ class _ItemState extends State<Item> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
+    var _items = Provider.of<List<ItemModel>>(context);
     return Scaffold(
       appBar: CustomAppBar(
         title: "Item",
+        searchDelegate: ItemSearchDelegate(_items),
       ),
       body: SafeArea(
         child: Stack(
@@ -100,7 +104,9 @@ class _ItemState extends State<Item> {
         onPressed: () {
           _showItemAdd(user.uid);
         },
-        child: Icon(Icons.add_box),
+        child: Icon(
+          Icons.add_box,
+        ),
         backgroundColor: Color(0XffAEEF85),
       ),
     );

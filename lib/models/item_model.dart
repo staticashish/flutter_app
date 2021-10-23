@@ -7,6 +7,7 @@ class ItemModel {
   String itemImageUrl;
   String itemImageName;
   String itemDescription;
+  Timestamp createdAt;
   String parentDocId;
 
   ItemModel(this.itemId, this.itemName, this.itemDescription, this.itemImageUrl,
@@ -19,6 +20,7 @@ class ItemModel {
         itemImageUrl = snapshot.data()["itemImageUrl"],
         itemImageName = snapshot.data()["itemImageName"],
         itemDescription = snapshot.data()["itemDescription"],
+        createdAt = snapshot.data()["createdAt"],
         parentDocId = snapshot.data()["parentDocId"];
 
   toJson() {
@@ -28,6 +30,7 @@ class ItemModel {
       "itemImageUrl": itemImageUrl,
       "itemImageName": itemImageName,
       "itemDescription": itemDescription,
+      "createdAt": FieldValue.serverTimestamp(),
       "parentDocId": parentDocId
     };
   }

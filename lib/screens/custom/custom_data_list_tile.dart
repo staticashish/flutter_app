@@ -33,22 +33,23 @@ class _CustomDataListTileState extends State<CustomDataListTile> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Container(
-            decoration: BoxDecoration(
+           /* decoration: BoxDecoration(
               gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0Xffffffff),
-                    //Color(0XffEDEDFC),
-                    //Color(0XffB9B9F5),
-                    //Color(0XffA8A7F3),
-                    //Color(0Xff9796F1),
-                    //Color(0Xff8685EF),
-                    //Color(0Xff8685EF),
-                    //Color(0Xff8685EF),
-                    Color(0Xff8685EF),
-                  ]),
-            ),
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0Xffffffff),
+                  //Color(0XffEDEDFC),
+                  //Color(0XffB9B9F5),
+                  //Color(0XffA8A7F3),
+                  //Color(0Xff9796F1),
+                  //Color(0Xff8685EF),
+                  //Color(0Xff8685EF),
+                  //Color(0Xff8685EF),
+                  Color(0Xff8685EF),
+                ],
+              ),
+            ),*/
             height: 120,
             padding: const EdgeInsets.fromLTRB(85.0, 1.0, 1.0, 1.0),
             child: Row(
